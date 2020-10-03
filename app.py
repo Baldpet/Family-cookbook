@@ -34,11 +34,17 @@ def sign_up():
 @app.route('/SignUp/user', methods=['POST', 'GET'])
 def sign_up_user():
     user = mongo.db.users
-    if (request.form.get('password')) == (request.form.get('password_check')):
-        hash = generate_password_hash(request.form.get('password'))
-        print(hash)
+    usernameCheck = user.find({'username': (request.form.get(
+        'username')).lower()}).count()
+    if usernameCheck == 1:
+        flash('Username already taken')
     else:
-        flash('Error! Your password does not match')
+        if (request.form.get('password')) == (request.form.get(
+                'password_check')):
+            hash = generate_password_hash(request.form.get('password'))
+            print(hash)
+        else:
+            flash('Error! Your password does not match')
     return redirect(url_for('sign_up'))
 
 

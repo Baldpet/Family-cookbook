@@ -29,10 +29,19 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="password-check" name="password_check" type="password" class="validate">
-                    <label for="password-check">Password Check</label>
+                    <input id="password_check" name="password_check" type="password" class="validate">
+                    <label for="password_check">Password Check</label>
                 </div>
             </div>
+			{% with messages = get_flashed_messages() %}
+			{% if messages %}
+			<ul class=flashes>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			{% endwith %}
             <button class="btn waves-effect waves-light" type="submit">Sign Up
                 <i class="material-icons right">send</i>
             </button>

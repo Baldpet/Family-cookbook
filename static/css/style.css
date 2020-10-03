@@ -1,0 +1,46 @@
+
+/* Hero Image and Index page */
+.hero-row{
+    height: 80vh;
+}
+
+.hero-img{
+    background-image: url("../assets/hero.jpg");
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+}
+
+.sign-in-form-outer{
+    display: inline-block;
+    margin-top: 30vh;
+    background-color:  white;
+    max-width: 90%;
+}
+
+.sign-in-form-inner{
+    background-color: inherit;
+    padding: 0.5rem;
+}
+
+/* Media queries */
+
+@media only screen and (max-width: 993px){
+    .hero-row{
+        height: 70vh;
+    }
+    .sign-in-form-outer{
+        margin-top: 20vh
+    }
+}
+
+@media only screen and (max-width: 601px){
+    .hero-row{
+        height: 50vh;
+    }
+    .sign-in-form-outer{
+        margin-top: 10vh
+    }
+}

@@ -36,15 +36,20 @@ def sign_up_user():
     user = mongo.db.users
     usernameCheck = user.find({'username': (request.form.get(
         'username')).lower()}).count()
+    emailCheck = user.find({'email': (request.form.get(
+        'email')).lower()}).count()
     if usernameCheck == 1:
         flash('Username already taken')
     else:
-        if (request.form.get('password')) == (request.form.get(
-                'password_check')):
-            hash = generate_password_hash(request.form.get('password'))
-            print(hash)
+        if emailCheck == 1:
+            flash('Email address already has a profile')
         else:
-            flash('Error! Your password does not match')
+            if (request.form.get('password')) == (request.form.get(
+                    'password_check')):
+                hash = generate_password_hash(request.form.get('password'))
+                print(hash)
+            else:
+                flash('Error! Your password does not match')
     return redirect(url_for('sign_up'))
 
 

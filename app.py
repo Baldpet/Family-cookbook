@@ -47,7 +47,12 @@ def sign_up_user():
             if (request.form.get('password')) == (request.form.get(
                     'password_check')):
                 hash = generate_password_hash(request.form.get('password'))
-                print(hash)
+                user.insert_one({
+                    'username': request.form.get('username').lower(),
+                    'first_name': request.form.get('first_name').lower(),
+                    'email': request.form.get('email').lower(),
+                    'password': hash
+                })
             else:
                 flash('Error! Your password does not match')
     return redirect(url_for('sign_up'))

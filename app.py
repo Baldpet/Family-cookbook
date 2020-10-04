@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from flask_login import LoginManager, login_user, logout_user, current_user
+from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 
 if os.path.exists("env.py"):
@@ -19,6 +19,8 @@ login_manager = LoginManager()
 mongo = PyMongo(app)
 
 login_manager.init_app(app)
+
+login_manager.login_view = "home"
 
 """
 Flask-Login User Class and callback function
@@ -67,7 +69,7 @@ def home():
     return render_template("index.html")
 
 
-@app.route('/SignUp')
+@app.route('/signup')
 def sign_up():
     # route to the sign up form
     return render_template("signup.html")
@@ -77,6 +79,27 @@ def sign_up():
 def home_login(username):
     # route to the home section for logged in users
     return render_template('homelogin.html')
+
+
+@app.route('/add-recipe')
+@login_required
+def add_recipe():
+    # route to the form to add a recipe to the app
+    return render_template('addrecipe.html')
+
+
+@app.route('/find-a-recipe')
+@login_required
+def search_recipes():
+    # route to the page to search for other recipes on the app
+    return render_template('searchrecipes.html')
+
+
+@app.route('/mycookbook/<username>')
+@login_required
+def my_cookbook(username):
+    # route to the cookbook of the user, shows the recipes they have saved
+    return render_template('mycookbook.html')
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -115,7 +138,7 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route('/SignUp/user', methods=['POST', 'GET'])
+@app.route('/signup/user', methods=['POST', 'GET'])
 def sign_up_user():
     """
         Sign up form

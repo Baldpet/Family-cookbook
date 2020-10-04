@@ -69,16 +69,24 @@ def home():
 
 @app.route('/SignUp')
 def sign_up():
+    # route to the sign up form
     return render_template("signup.html")
 
 
 @app.route('/home/<username>')
 def home_login(username):
+    # route to the home section for logged in users
     return render_template('homelogin.html')
 
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    """
+        Authenticates the login with the database
+        Uses the hashed password and username to authenticate
+        Once done, logs user in a redirects to their home
+        If not authenticated will return to login form
+    """
     if request.method == 'POST':
         lowerUsername = request.form.get('username').lower()
         user = mongo.db.users.find_one(
@@ -99,12 +107,22 @@ def login():
 
 @app.route('/logout')
 def logout():
+    """
+        Logout function for users that are logged in
+    """
     logout_user()
     return redirect(url_for('home'))
 
 
 @app.route('/SignUp/user', methods=['POST', 'GET'])
 def sign_up_user():
+    """
+        Sign up form
+        Will check if the user or the email has already been used
+        Will check that the password has been typed correctly
+        Will then add the user to the database
+        Redirects to the login page
+    """
     user = mongo.db.users
     usernameCheck = user.find({'username': (request.form.get(
         'username')).lower()}).count()

@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 if os.path.exists("env.py"):
@@ -87,6 +87,12 @@ def login():
             return redirect(request.args.get("next") or url_for(
                 "home_login", username=user['username']))
         flash("Wrong username or password")
+    return redirect(url_for('home'))
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
     return redirect(url_for('home'))
 
 

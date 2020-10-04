@@ -76,6 +76,7 @@ def sign_up():
 
 
 @app.route('/home/<username>')
+@login_required
 def home_login(username):
     # route to the home section for logged in users
     return render_template('homelogin.html')

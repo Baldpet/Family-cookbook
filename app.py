@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from flask_login import LoginManager, login_user, logout_user
+from flask_login import LoginManager, login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 if os.path.exists("env.py"):
@@ -22,7 +22,7 @@ login_manager.init_app(app)
 
 """
 Flask-Login User Class and callback function
-Code taken from Slack Issac October 1 2019
+Code taken from Slack Issac posted on October 1 2019
 """
 
 
@@ -52,12 +52,18 @@ def load_user(username):
 
 
 """
-End of code taken from Slack
+End of code taken from Slack user Issac
 """
 
 
 @app.route('/')
 def home():
+    """
+        route to the home page with no login,
+        redirects to personal home if already logged in
+    """
+    if current_user.is_authenticated:
+        return redirect(url_for('home_login', username=current_user))
     return render_template("index.html")
 
 
@@ -84,6 +90,7 @@ def login():
             user_obj = User(user['username'])
             login_user(user_obj)
             flash("Logged in successfully")
+            print(User)
             return redirect(request.args.get("next") or url_for(
                 "home_login", username=user['username']))
         flash("Wrong username or password")

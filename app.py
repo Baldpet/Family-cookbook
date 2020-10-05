@@ -123,7 +123,7 @@ def login():
                 user_obj = User(user['username'])
                 login_user(user_obj)
                 flash("Logged in successfully")
-                print(User)
+                print(user_obj)
                 return redirect(request.args.get("next") or url_for(
                     "home_login", username=user['username']))
         flash("Wrong username or password")

@@ -196,7 +196,7 @@ def add_recipe_form():
     if request.method == 'POST':
         recipe = mongo.db.recipes
         recipe.insert_one({
-            'recipe_name': request.form.get('recipe_name'),
+            'recipe_name': request.form.get('recipe_name').lower(),
             'main_ingredient': request.form.get('main_ingredient'),
             'ingredients': request.form.getlist('ingredients'),
             'serves': request.form.get('serves'),

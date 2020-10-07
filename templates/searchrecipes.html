@@ -2,6 +2,13 @@
 {% block content %}
 <div class="container">
     <h1>Search Recipes</h1>
+    {% for recipe in recipes %}
+    <div class="recipe">
+        <h3>{{recipe.recipe_name}}</h3>
+        <p>{{recipe.time}}</p>
+        <p>{{recipe.serves}}</p>
+    </div>
+    {% endfor %}
 </div>
 
 {% endblock %}

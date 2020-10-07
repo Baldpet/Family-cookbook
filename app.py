@@ -95,14 +95,17 @@ def add_recipe():
 @login_required
 def search_recipes():
     # route to the page to search for other recipes on the app
-    return render_template('searchrecipes.html')
+    return render_template('searchrecipes.html',
+                           recipes=mongo.db.recipes.find())
 
 
 @app.route('/mycookbook/<username>')
 @login_required
 def my_cookbook(username):
     # route to the cookbook of the user, shows the recipes they have saved
-    return render_template('mycookbook.html')
+    return render_template('mycookbook.html',
+                           recipes=mongo.db.recipes.find({
+                               'cookbook': current_user.username}))
 
 
 @app.route('/login', methods=['POST', 'GET'])

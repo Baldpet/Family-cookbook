@@ -66,7 +66,7 @@ def home():
         redirects to personal home if already logged in
     """
     if current_user.is_authenticated:
-        return redirect(url_for('home_login', username=current_user))
+        return redirect(url_for('home_login', username=current_user.username))
     return render_template("index.html")
 
 
@@ -105,7 +105,7 @@ def my_cookbook(username):
     # route to the cookbook of the user, shows the recipes they have saved
     return render_template('mycookbook.html',
                            recipes=mongo.db.recipes.find({
-                               'cookbook': current_user.username}))
+                               'cookbook': username}))
 
 
 @app.route('/login', methods=['POST', 'GET'])

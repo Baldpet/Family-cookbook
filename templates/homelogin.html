@@ -20,7 +20,7 @@
             <a href="{{url_for('search_recipes')}}">Search for a recipe</a>
         </div>
         <div class="col s4">
-            <a href="{{url_for('my_cookbook', username=current_user)}}">My Cookbook</a>
+            <a href="{{url_for('my_cookbook', username=current_user.username)}}">My Cookbook</a>
         </div>
     </div>
 </div>

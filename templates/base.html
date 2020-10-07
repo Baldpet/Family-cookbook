@@ -16,7 +16,7 @@
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<li><a href="{{url_for('home')}}">Home</a></li>
 				<li><a href="{{url_for('search_recipes')}}">Recipes</a></li>
-				<li><a href="{{url_for('my_cookbook', username=current_user)}}">My Cookbook</a></li>
+				<li><a href="{{url_for('my_cookbook', username=current_user.username)}}">My Cookbook</a></li>
                 <li>
                     {% if current_user.is_authenticated %}
                         <a href="{{url_for('logout')}}">Logout</a>
@@ -28,7 +28,7 @@
             <ul class="side-nav" id="mobile-demo">
                 <li><a href="{{url_for('home')}}">Home</a></li>
                 <li><a href="{{url_for('search_recipes')}}">Recipes</a></li>
-                <li><a href="{{url_for('my_cookbook', username=current_user)}}">My Cookbook</a></li>
+                <li><a href="{{url_for('my_cookbook', username=current_user.username)}}">My Cookbook</a></li>
                 <li>
                     {% if current_user.is_authenticated %}
                     <a href="{{url_for('logout')}}">Logout</a>

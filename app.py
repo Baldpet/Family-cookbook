@@ -99,6 +99,17 @@ def search_recipes():
                            recipes=mongo.db.recipes.find())
 
 
+@app.route('/find-a-recipe/<recipe>')
+def add_cookbook(recipe):
+    # will add the recipe to the user's cookbook.
+    recipe_id = ObjectId(recipe)
+    mongo.db.recipes.update_one(
+        {"_id": recipe_id},
+        {'$push': {'cookbook': current_user.username}}
+    )
+    return redirect(url_for('search_recipes'))
+
+
 @app.route('/mycookbook/<username>')
 @login_required
 def my_cookbook(username):
@@ -193,7 +204,7 @@ def add_recipe_form():
             'method': request.form.getlist('method'),
             'time_stamp': datetime.datetime.now(),
             'orignal_user': current_user.username,
-            'cookbook': current_user.username
+            'cookbook': [current_user.username]
         })
         flash('submitted')
     return redirect(url_for('add_recipe'))

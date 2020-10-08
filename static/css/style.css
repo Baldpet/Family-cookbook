@@ -34,10 +34,6 @@
     margin: auto;
 }
 
-.home-link{
-
-}
-
 .home-box-center{
     margin: auto;
     max-width: 50%;
@@ -47,6 +43,39 @@
 
 .recipe-form-add{
     display: inline;
+    margin-left: 1rem;
+}
+
+/* Recipe view*/
+
+#ingredient li{
+    list-style-type: disc;
+}
+
+/* Recipe*/
+
+.recipe{
+    display: inline;
+}
+
+.recipe .card{
+    height: 220px;
+}
+
+.card.horizontal .card-image{
+    max-width: 25%;
+    max-height: 100%;
+}
+
+.card.horizontal .card-image img{
+    max-height: 100%;
+}
+
+.card .card-action{
+    padding: 16px 20px;
+}
+
+.card-action span{
     margin-left: 1rem;
 }
 

@@ -119,6 +119,18 @@ def my_cookbook(username):
                                'cookbook': username}))
 
 
+@app.route('/recipe/<recipe>/<name>')
+@login_required
+def recipe(recipe, name):
+    '''
+        Will render the recipe template of the selected recipe.
+    '''
+    recipeID = ObjectId(recipe)
+    return render_template('recipe.html',
+                           recipe=mongo.db.recipes.find({
+                               '_id': recipeID}))
+
+
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     """

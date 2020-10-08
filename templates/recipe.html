@@ -1,7 +1,32 @@
 {% extends "base.html" %}
+{% block css %}../../{% endblock %}
 {% block content %}
 <div class="container">
-    <h1>Recipe</h1>
+    {% for recipe in recipe %}
+        <div class="row">
+            <div class="col">
+                <h1>{{recipe.recipe_name.capitalize()}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s6">Serves: {{recipe.serves}}</div>
+            <div class="col s6">Time: {{recipe.time}}</div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <ul id="ingredient">
+                    {% for ingredient in recipe.ingredients %}
+                        <li>{{ingredient.capitalize()}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{recipe.method}}
+            </div>
+        </div>
+    {% endfor %}
 </div>
 
 {% endblock %}

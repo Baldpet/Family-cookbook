@@ -2,14 +2,51 @@
 {% block content %}
 <div class="container">
     <h1>Search Recipes</h1>
+    <div class="row">
     {% for recipe in recipes %}
-    <div class="recipe">
-        <h3>{{recipe.recipe_name}}</h3>
-        <p>{{recipe.time}}</p>
-        <p>{{recipe.serves}}</p>
-        <a  href="{{url_for('add_cookbook', recipe=recipe._id)}}" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
-    </div>
+	
+    
+	<div class="col s12 l6 recipe">
+		
+		<div class="card horizontal">
+			<div class="card-image valign-wrapper">
+                {% if recipe.main_ingredient == 'poultry' %}
+				    <img src="static/assets/chicken.png">
+                {% elif recipe.main_ingredient == 'pork' %}
+                    <img src="static/assets/pork.png">
+                {% elif recipe.main_ingredient == 'beef' %}
+                    <img src="static/assets/cow.png">
+                {% elif recipe.main_ingredient == 'fish' %}
+                    <img src="static/assets/fish.png">
+                {% elif recipe.main_ingredient == 'vegetarian' %}
+                    <img src="static/assets/corn.png">
+                {% elif recipe.main_ingredient == 'vegan' %}
+                    <img src="static/assets/vegan.jpg">
+                {% else %}
+                    <img src="static/assets/other.jpg">
+                {% endif %}
+			</div>
+			<a href="{{url_for('recipe', recipe=recipe._id, name=recipe.recipe_name)}}">
+				<div class="card-stacked">
+					<div class="card-content">
+						<h5>{{recipe.recipe_name}}</h5>
+						<p>Serves: {{recipe.serves}}</p>
+						<p>Time to cook: {{recipe.time}}</p>
+					</div>
+                
+					
+					<div class="card-action">
+						<a href="{{url_for('add_cookbook', recipe=recipe._id)}}"
+							class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons">add</i></a><span>Add to cookbook</span>
+					</div>
+				</div>
+            </a>
+		</div>
+		
+	</div>
+	
     {% endfor %}
+    </div>
 </div>
 
 {% endblock %}

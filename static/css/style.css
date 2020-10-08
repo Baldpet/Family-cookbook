@@ -25,6 +25,13 @@
     padding: 0.5rem;
 }
 
+/* Recipe form */
+
+.recipe-form-add{
+    display: inline;
+    margin-left: 1rem;
+}
+
 /* Media queries */
 
 @media only screen and (max-width: 993px){

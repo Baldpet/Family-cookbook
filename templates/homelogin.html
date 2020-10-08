@@ -1,28 +1,53 @@
 {% extends "base.html" %}
+
+{% block css %}../{% endblock %}
+
 {% block content %}
 <div class="container">
-    <div class="row">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul class=flashes>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-    </div>
-    <div class="row">
-        <div class="col s4">
-            <a href="{{url_for('add_recipe')}}">Add a recipe</a>
-        </div>
-        <div class="col s4">
-            <a href="{{url_for('search_recipes')}}">Search for a recipe</a>
-        </div>
-        <div class="col s4">
-            <a href="{{url_for('my_cookbook', username=current_user.username)}}">My Cookbook</a>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col s12 center-align">
+			<h1>The Family Cookbook</h1>
+		</div>
+	</div>
+	<div class="row center-align">
+		<p>Welcome {{current_user.username.capitalize()}} to The Family Cookbook</p>
+	</div>
+	<div class="row">
+		<div class="col s6">
+            <a class="home-link" href="{{url_for('add_recipe')}}">
+                <div class="home-box valign-wrapper">
+                    <p class="home-box-center">Add a recipe for the rest of the world to enjoy!</p>
+                </div>
+            </a>
+		</div>
+		<div class="col s6">
+            <a class="home-link" href="{{url_for('search_recipes')}}">
+                <div class="home-box valign-wrapper">
+                    <p class="home-box-center">Pad out your cookbook with some fantastic recipes uploaded by our users</p>
+                </div>
+            </a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s6">
+            <a class="home-link" href="{{url_for('my_cookbook', username=current_user.username)}}">
+                <div class="home-box valign-wrapper">
+                    <p class="home-box-center">View and edit the recipes in your cookbook</p>
+                </div>
+            </a>
+		</div>
+		<div class="col s6">
+            <a class="home-link" href="#">
+                <div class="home-box valign-wrapper">
+                   <p class="home-box-center">Check out the recipes you've uploaded</p>
+                </div>
+            </a>
+		</div>
+	</div>
 </div>
+
+{% endblock %}
+
+{% block js %}
 
 {% endblock %}

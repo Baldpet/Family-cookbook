@@ -36,18 +36,24 @@
             <div class="input-field col s12">
                 <input id="ingredients" name="ingredients" type="text" class="validate" required>
                 <label for="ingredients">Ingredients</label>
+            
             </div>
+            <div id="break1"></div>
         </div>
-        <div id="break1"></div>
-        <a id="addingredient" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+        
+        <div class="row">
+            <a id="addingredient" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+        </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="method" name="method" type="text" class="validate" required>
+                <textarea id="method" name="method" type="text" class="materialize-textarea" required></textarea>
                 <label for="method">Recipe method</label>
             </div>
+            <div id="break2"></div>
         </div>
-        <div id="break2"></div>
-        <a id="addmethod" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+        <div>
+            <a id="addmethod" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+        </div>
         <div>
             {% with messages = get_flashed_messages() %}
 			{% if messages %}
@@ -69,15 +75,5 @@
 {% endblock %}
 
 {% block js %}
-    <script>
-        $("#addingredient").click(function(){
-            $("#break1").before('<div class="input-field col s12">');
-            $("#break1").before('<input name="ingredients" type="text" class="validate">');
-        });
-
-        $("#addmethod").click(function(){
-            $("#break2").before('<div class="input-field col s12">');
-            $("#break2").before('<input name="method" type="text" class="validate">');
-        });
-    </script>
+    <script type="text/javascript" src="static/js/addrecipe.js"></script>
 {% endblock %}

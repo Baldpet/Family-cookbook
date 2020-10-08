@@ -1,53 +1,80 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <h1>Add a Recipe</h1>
-
+    <div class="row center-align">
+        <h1>Add a Recipe</h1>
+    </div>
     <div class="row">
-        <form class="col s12">
+        <form action="{{url_for('add_recipe_form')}}" method="POST" class="col s12">
         <div class="row">
-            <div class="input-field col s12">
-            <input id="recipe_name" name="recipe_name" type="text" class="validate" required>
-            <label for="recipe_name">Recipe Name</label>
-            </div>
-        </div>
-		<div class="input-field col s12">
-			<select name="main_ingredient" required>
-		      <option value="" disabled selected>Choose your option</option>
-		      <option value="1">Option 1</option>
-		      <option value="2">Option 2</option>
-		      <option value="3">Option 3</option>
-		    </select>
-			<label>Main Ingredient</label>
-		</div>
-        <div class="row">
-            <div class="input-field col s12">
-            <input id="serves" name="serves" type="text" class="validate" required>
-            <label for="serves">Number of people the recipe serves</label>
+            <div class="input-field col s12 m10 l8 offset-m1 offset-l2">
+                <input id="recipe_name" name="recipe_name" type="text" class="validate" required>
+                <label for="recipe_name">Recipe Name</label>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s12">
-            <input id="time" name="time" type="text" class="validate" required>
-            <label for="time">Time recipe takes to cook</label>
+            <div class="input-field col s12 m10 l8 offset-m1 offset-l2">
+                <select name="main_ingredient" required>
+                <option value="" disabled selected>Choose your option</option>
+                {% for ingredient in ingredients %}
+                <option value="{{ingredient.ingredient}}">{{ingredient.ingredient.capitalize()}}</option>
+                {% endfor %}
+                </select>
+                <label>Main Ingredient</label>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s12">
-            <input id="ingredients" name="ingredients" type="text" class="validate" required>
-            <label for="ingredients">Ingredients</label>
+            <div class="input-field col s12 m10 l8 offset-m1 offset-l2">
+                <input id="serves" name="serves" type="text" class="validate" required>
+                <label for="serves">Number of people the recipe serves</label>
             </div>
         </div>
-        <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
         <div class="row">
-            <div class="input-field col s12">
-            <input id="method" name="method" type="text" class="validate" required>
-            <label for="method">Recipe method</label>
+            <div class="input-field col s12 m10 l8 offset-m1 offset-l2">
+                <input id="time" name="time" type="text" class="validate" required>
+                <label for="time">Time recipe takes to cook</label>
             </div>
         </div>
-        <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
-        <div>
-            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <div class="row">
+            <div class="input-field col s12 m10 l8 offset-m1 offset-l2">
+                <input id="ingredients" name="ingredients" type="text" class="validate" required>
+                <label for="ingredients">Ingredients</label>
+            
+            </div>
+            <div id="break1"></div>
+        </div>
+        
+        <div class="row">
+            <div class="col s12 m10 l8 offset-m1 offset-l2">
+                <a id="addingredient" class="btn-floating btn-large waves-effect waves-light green"><i class="material-icons">add</i></a>
+                <p class="recipe-form-add">Add an ingredient</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m10 l8 offset-m1 offset-l2">
+                <textarea id="method" name="method" type="text" class="materialize-textarea" required></textarea>
+                <label for="method">Recipe method</label>
+            </div>
+            <div id="break2"></div>
+        </div>
+        <div class="row">
+            <div class="col col s12 m10 l8 offset-m1 offset-l2">
+                <a id="addmethod" class="btn-floating btn-large waves-effect waves-light green"><i class="material-icons">add</i></a>
+                <p class="recipe-form-add">Add another cooking step</p>
+            </div>
+        </div>
+        <div class="row center-align">
+            {% with messages = get_flashed_messages() %}
+			{% if messages %}
+			<ul class=flashes>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			{% endwith %}
+			
+            <button class="submit-button btn waves-effect waves-light" type="submit" name="action">Submit
                 <i class="material-icons right">send</i>
             </button>
         </div>
@@ -55,4 +82,8 @@
     </div>
   </div>
 
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="static/js/addrecipe.js"></script>
 {% endblock %}

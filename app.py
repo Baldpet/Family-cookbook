@@ -1,4 +1,5 @@
 import os
+import datetime
 from flask import Flask, render_template, redirect, request, url_for, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -65,7 +66,7 @@ def home():
         redirects to personal home if already logged in
     """
     if current_user.is_authenticated:
-        return redirect(url_for('home_login', username=current_user))
+        return redirect(url_for('home_login', username=current_user.username))
     return render_template("index.html")
 
 
@@ -82,25 +83,40 @@ def home_login(username):
     return render_template('homelogin.html')
 
 
-@app.route('/add-recipe')
+@app.route('/add-recipe', methods=['POST', 'GET'])
 @login_required
 def add_recipe():
     # route to the form to add a recipe to the app
-    return render_template('addrecipe.html')
+    return render_template('addrecipe.html',
+                           ingredients=mongo.db.main_ingredients.find())
 
 
 @app.route('/find-a-recipe')
 @login_required
 def search_recipes():
     # route to the page to search for other recipes on the app
-    return render_template('searchrecipes.html')
+    return render_template('searchrecipes.html',
+                           recipes=mongo.db.recipes.find())
+
+
+@app.route('/find-a-recipe/<recipe>')
+def add_cookbook(recipe):
+    # will add the recipe to the user's cookbook.
+    recipe_id = ObjectId(recipe)
+    mongo.db.recipes.update_one(
+        {"_id": recipe_id},
+        {'$push': {'cookbook': current_user.username}}
+    )
+    return redirect(url_for('search_recipes'))
 
 
 @app.route('/mycookbook/<username>')
 @login_required
 def my_cookbook(username):
     # route to the cookbook of the user, shows the recipes they have saved
-    return render_template('mycookbook.html')
+    return render_template('mycookbook.html',
+                           recipes=mongo.db.recipes.find({
+                               'cookbook': username}))
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -115,7 +131,6 @@ def login():
         lowerUsername = request.form.get('username').lower()
         user = mongo.db.users.find_one(
             {"username": lowerUsername})
-        print(user)
         if user is not None:
             userPassword = check_password_hash(
                 user['password'], request.form.get('password'))
@@ -123,7 +138,6 @@ def login():
                 user_obj = User(user['username'])
                 login_user(user_obj)
                 flash("Logged in successfully")
-                print(user_obj)
                 return redirect(request.args.get("next") or url_for(
                     "home_login", username=user['username']))
         flash("Wrong username or password")
@@ -172,6 +186,28 @@ def sign_up_user():
             else:
                 flash('Error! Your password does not match')
     return redirect(url_for('sign_up'))
+
+
+@app.route('/add-recipe/submit', methods=['POST', 'GET'])
+def add_recipe_form():
+    '''
+        Form to submit a new recipe to the database
+    '''
+    if request.method == 'POST':
+        recipe = mongo.db.recipes
+        recipe.insert_one({
+            'recipe_name': request.form.get('recipe_name').lower(),
+            'main_ingredient': request.form.get('main_ingredient'),
+            'ingredients': request.form.getlist('ingredients'),
+            'serves': request.form.get('serves'),
+            'time': request.form.get('time'),
+            'method': request.form.getlist('method'),
+            'time_stamp': datetime.datetime.now(),
+            'orignal_user': current_user.username,
+            'cookbook': [current_user.username]
+        })
+        flash('submitted')
+    return redirect(url_for('add_recipe'))
 
 
 if __name__ == '__main__':

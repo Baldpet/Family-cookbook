@@ -25,6 +25,31 @@
     padding: 0.5rem;
 }
 
+/* Login Home */
+
+.home-box{
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
+    margin: auto;
+}
+
+.home-link{
+
+}
+
+.home-box-center{
+    margin: auto;
+    max-width: 50%;
+}
+
+/* Recipe form */
+
+.recipe-form-add{
+    display: inline;
+    margin-left: 1rem;
+}
+
 /* Media queries */
 
 @media only screen and (max-width: 993px){

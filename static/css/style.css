@@ -59,7 +59,7 @@
 }
 
 .recipe .card{
-    height: 220px;
+    height: 250px;
 }
 
 .card.horizontal .card-image{
@@ -72,10 +72,21 @@
 }
 
 .card .card-action{
-    padding: 16px 20px;
+    height: 80px;
+    padding: 16px 16px;
 }
 
 .card-action span{
+    margin-left: 1rem;
+}
+
+.card-content{
+    height: 170px;
+    display: table-row;
+}
+
+.card-content h5,
+.card .card-content p{
     margin-left: 1rem;
 }
 

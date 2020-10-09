@@ -91,7 +91,7 @@ def add_recipe():
                            ingredients=mongo.db.main_ingredients.find())
 
 
-@app.route('/find-a-recipe')
+@app.route('/find-a-recipe', methods=['POST', 'GET'])
 @login_required
 def search_recipes():
     # route to the page to search for other recipes on the app
@@ -227,10 +227,8 @@ def date_check(date):
     time_since_upload = datetime.datetime.now() - date
 
     if time_since_upload.days < 7:
-        print('true')
         return True
     else:
-        print(time_since_upload)
         return False
 
 

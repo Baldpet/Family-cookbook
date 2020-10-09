@@ -4,44 +4,50 @@
     <div class="row center-align">
         <h1>Search Recipes</h1>
     </div>
-    <div class="row">
-        <div class="col s12 m6">
-            <div class="input-field">
-                <select name="main_ingredient" required>
-                <option value="" disabled selected>Choose your option</option>
-                {% for ingredient in ingredients %}
-                <option value="{{ingredient.ingredient}}">{{ingredient.ingredient.capitalize()}}</option>
-                {% endfor %}
-                </select>
-                <label>Search by Main Ingredient</label>
+    <form method="POST">
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="input-field">
+                    <select name="main_ingredient" required>
+                    <option value="none" selected>All</option>
+                    {% for ingredient in ingredients %}
+                    <option value="{{ingredient.ingredient}}">{{ingredient.ingredient.capitalize()}}</option>
+                    {% endfor %}
+                    </select>
+                    <label>Search by Main Ingredient</label>
+                </div>
             </div>
-        </div>
-        <div class="col s12 m6">
-            <div class="input-field">
-                <input placeholder="Recipe name" id="recipe_name" type="text" class="validate">
-                <label for="recipe_name">Seach by Recipe Name</label>
+            <div class="col s12 m6">
+                <div class="input-field">
+                    <input placeholder="Recipe name" name="recipe_name" id="recipe_name" type="text" class="validate">
+                    <label for="recipe_name">Seach by Recipe Name</label>
+                </div>
             </div>
+
         </div>
-    </div>
+        <div class="row center-align">
+            <a type="submit" value="Submit" class="waves-effect waves-light btn filter">Search</a>
+        </div>
+    </form>
     <div class="row">
     {% for recipe in recipes %}
 	  <div class="col s12 l6 recipe">
 		<div class="card horizontal">
 			<div class="card-image valign-wrapper">
                 {% if recipe.main_ingredient == 'poultry' %}
-				    <img src="static/assets/chicken.png">
+				    <img class="poultry" src="static/assets/chicken.png">
                 {% elif recipe.main_ingredient == 'pork' %}
-                    <img src="static/assets/pork.png">
+                    <img class="pork" src="static/assets/pork.png">
                 {% elif recipe.main_ingredient == 'beef' %}
-                    <img src="static/assets/cow.png">
+                    <img class="beef" src="static/assets/cow.png">
                 {% elif recipe.main_ingredient == 'fish' %}
-                    <img src="static/assets/fish.png">
+                    <img class="fish" src="static/assets/fish.png">
                 {% elif recipe.main_ingredient == 'vegetarian' %}
-                    <img src="static/assets/corn.png">
+                    <img class="vegetarian" src="static/assets/corn.png">
                 {% elif recipe.main_ingredient == 'vegan' %}
-                    <img src="static/assets/vegan.jpg">
+                    <img class="vegan" src="static/assets/vegan.jpg">
                 {% else %}
-                    <img src="static/assets/other.png">
+                    <img class="other" src="static/assets/other.png">
                 {% endif %}
 			</div>
 			<a href="{{url_for('recipe', recipe=recipe._id, name=recipe.recipe_name)}}">
@@ -73,4 +79,8 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="static/js/filter.js"></script>
 {% endblock %}

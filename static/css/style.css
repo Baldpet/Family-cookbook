@@ -46,9 +46,6 @@
     margin-left: 1rem;
 }
 
-/* Recipe search */
-
-
 /* Recipe view*/
 
 #ingredient li{
@@ -98,6 +95,13 @@ span.badge{
     top: 0px;
     right: 0px;
 }
+
+/* Recipe search */
+
+.display-none{
+    display: none;
+}
+
 
 /* Media queries */
 

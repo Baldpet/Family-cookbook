@@ -100,22 +100,21 @@ def search_recipes():
                            ingredients=mongo.db.main_ingredients.find())
 
 
-@app.route('/find-a-recipe/<recipe>')
-def add_cookbook(recipe):
+@app.route('/find-a-recipe/<recipe><love>')
+def add_cookbook(recipe, love):
     '''
     adds the recipe from the search menu to the user's cookbook.
     also adds another number on to the love list for the orignal user.
     '''
     recipe_id = ObjectId(recipe)
-    number = mongo.db.recipes.recipe_id.valueOf('love')
-    numberAdd = number + 1
+    numberAdd = int(love) + 1
     mongo.db.recipes.update_one(
         {"_id": recipe_id},
         {'$push': {'cookbook': current_user.username}}
     )
-    mongo.db.recipes.replaceOne(
+    mongo.db.recipes.update_one(
         {"_id": recipe_id},
-        {"love": numberAdd}
+        {'$set': {"love": numberAdd}}
     )
     return redirect(url_for('search_recipes'))
 

@@ -5,7 +5,7 @@
     {% for recipe in recipe %}
         <div class="row">
             <div class="col s12 ">
-                <h1>{{recipe.recipe_name.capitalize()}}</h1>
+                <h1>{{recipe.recipe_name.title()}}</h1>
             </div>
         </div>
         <div class="row ">
@@ -22,14 +22,14 @@
             </div>
                 <ul id="ingredient">
                     {% for ingredient in recipe.ingredients %}
-                        <div class="col s4 offset-s2">
+                        <div class="col s6">
                         {% if loop.index % 2 != 0 %}
                         
                             <li>{{ingredient.capitalize()}}</li>
                                             
                         {% endif %}
                         </div>  
-                        <div class="col s4 offset-s2">
+                        <div class="col s6">
                         {% if loop.index % 2 == 0 %}
                         
                             <li>{{ingredient.capitalize()}}</li>
@@ -41,7 +41,7 @@
             
         </div>
         <div class="row">
-            <div class="col s8">
+            <div class="col s12">
             <h4>Method</h4>
                 {% for step in recipe.method %}
                     <p><span>Step {{loop.index}} : </span> {{step}} </p>

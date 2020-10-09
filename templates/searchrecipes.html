@@ -62,7 +62,7 @@
                     <a href="{{url_for('recipe', recipe=recipe._id, name=recipe.recipe_name)}}">
 					<div class="card-content">
                         
-						<h5>{{recipe.recipe_name}}</h5>
+						<h5>{{recipe.recipe_name.title()}}</h5>
 						<p>Serves: {{recipe.serves}}</p>
 						<p>Time to cook: {{recipe.time}}</p>
 					</div>

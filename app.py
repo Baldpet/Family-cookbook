@@ -235,6 +235,19 @@ def date_check(date):
 app.jinja_env.globals.update(date_check=date_check)
 
 
+def in_cookbook(cookbook, username):
+    if username in cookbook:
+        return True
+    else:
+        return False
+
+
+app.jinja_env.globals.update(in_cookbook=in_cookbook)
+
+
+
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=int(
         os.environ.get('PORT')), debug=True)

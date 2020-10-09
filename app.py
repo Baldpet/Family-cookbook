@@ -100,7 +100,7 @@ def search_recipes():
                            ingredients=mongo.db.main_ingredients.find())
 
 
-@app.route('/find-a-recipe/<recipe><love>')
+@app.route('/find-a-recipe/<recipe>/<love>')
 def add_cookbook(recipe, love):
     '''
     adds the recipe from the search menu to the user's cookbook.

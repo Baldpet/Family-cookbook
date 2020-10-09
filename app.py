@@ -102,11 +102,20 @@ def search_recipes():
 
 @app.route('/find-a-recipe/<recipe>')
 def add_cookbook(recipe):
-    # will add the recipe to the user's cookbook.
+    '''
+    adds the recipe from the search menu to the user's cookbook.
+    also adds another number on to the love list for the orignal user.
+    '''
     recipe_id = ObjectId(recipe)
+    number = mongo.db.recipes.recipe_id.valueOf('love')
+    numberAdd = number + 1
     mongo.db.recipes.update_one(
         {"_id": recipe_id},
         {'$push': {'cookbook': current_user.username}}
+    )
+    mongo.db.recipes.replaceOne(
+        {"_id": recipe_id},
+        {"love": numberAdd}
     )
     return redirect(url_for('search_recipes'))
 
@@ -217,7 +226,8 @@ def add_recipe_form():
             'method': request.form.getlist('method'),
             'time_stamp': datetime.datetime.now(),
             'orignal_user': current_user.username,
-            'cookbook': [current_user.username]
+            'cookbook': [current_user.username],
+            'love': 0
         })
         flash('submitted')
     return redirect(url_for('add_recipe'))
@@ -243,10 +253,6 @@ def in_cookbook(cookbook, username):
 
 
 app.jinja_env.globals.update(in_cookbook=in_cookbook)
-
-
-
-
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=int(

@@ -29,6 +29,12 @@
 			<a href="{{url_for('recipe', recipe=recipe._id, name=recipe.recipe_name)}}">
 				<div class="card-stacked">
 					<div class="card-content">
+                        {% set date=recipe.time_stamp %}
+                        {% if date_check(date) == True %}
+                            <span class="new badge"></span>
+                        {% else %}
+
+                        {% endif %}
 						<h5>{{recipe.recipe_name}}</h5>
 						<p>Serves: {{recipe.serves}}</p>
 						<p>Time to cook: {{recipe.time}}</p>

@@ -222,6 +222,20 @@ def add_recipe_form():
     return redirect(url_for('add_recipe'))
 
 
+def date_check(date):
+    time_since_upload = datetime.datetime.now() - date
+
+    if time_since_upload.days < 7:
+        print('true')
+        return True
+    else:
+        print(time_since_upload)
+        return False
+
+
+app.jinja_env.globals.update(date_check=date_check)
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=int(
         os.environ.get('PORT')), debug=True)

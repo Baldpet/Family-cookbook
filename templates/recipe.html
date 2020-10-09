@@ -4,26 +4,48 @@
 <div class="container">
     {% for recipe in recipe %}
         <div class="row">
-            <div class="col">
+            <div class="col s12 ">
                 <h1>{{recipe.recipe_name.capitalize()}}</h1>
             </div>
         </div>
-        <div class="row">
-            <div class="col s6">Serves: {{recipe.serves}}</div>
-            <div class="col s6">Time: {{recipe.time}}</div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <ul id="ingredient">
-                    {% for ingredient in recipe.ingredients %}
-                        <li>{{ingredient.capitalize()}}</li>
-                    {% endfor %}
-                </ul>
+        <div class="row ">
+            <div class="col s6">
+                Serves: {{recipe.serves}}
+            </div>
+            <div class="col s6">
+                Time: {{recipe.time}}
             </div>
         </div>
         <div class="row">
-            <div class="col">
-                {{recipe.method}}
+            <div class="">
+                <h4>Ingredients</h4>
+            </div>
+                <ul id="ingredient">
+                    {% for ingredient in recipe.ingredients %}
+                        <div class="col s4 offset-s2">
+                        {% if loop.index % 2 != 0 %}
+                        
+                            <li>{{ingredient.capitalize()}}</li>
+                                            
+                        {% endif %}
+                        </div>  
+                        <div class="col s4 offset-s2">
+                        {% if loop.index % 2 == 0 %}
+                        
+                            <li>{{ingredient.capitalize()}}</li>
+                                            
+                        {% endif %}
+                        </div>  
+                    {% endfor %}
+                </ul>
+            
+        </div>
+        <div class="row">
+            <div class="col s8">
+            <h4>Method</h4>
+                {% for step in recipe.method %}
+                    <p><span>Step {{loop.index}} : </span> {{step}} </p>
+                {% endfor %}
             </div>
         </div>
     {% endfor %}

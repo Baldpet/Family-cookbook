@@ -96,7 +96,8 @@ def add_recipe():
 def search_recipes():
     # route to the page to search for other recipes on the app
     return render_template('searchrecipes.html',
-                           recipes=mongo.db.recipes.find())
+                           recipes=mongo.db.recipes.find(),
+                           ingredients=mongo.db.main_ingredients.find())
 
 
 @app.route('/find-a-recipe/<recipe>')

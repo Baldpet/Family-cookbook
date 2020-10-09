@@ -46,13 +46,16 @@
     margin-left: 1rem;
 }
 
+/* Recipe search */
+
+
 /* Recipe view*/
 
 #ingredient li{
     list-style-type: disc;
 }
 
-/* Recipe*/
+/* Recipe card*/
 
 .recipe{
     display: inline;

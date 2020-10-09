@@ -32,7 +32,14 @@
     <div class="row">
     {% for recipe in recipes %}
 	  <div class="col s12 l6 recipe">
+      
 		<div class="card horizontal">
+            {% set date=recipe.time_stamp %}
+                        {% if date_check(date) == True %}
+                            <span class="new badge"></span>
+                        {% else %}
+
+                        {% endif %}
 			<div class="card-image valign-wrapper">
                 {% if recipe.main_ingredient == 'poultry' %}
 				    <img class="poultry" src="static/assets/chicken.png">
@@ -50,19 +57,16 @@
                     <img class="other" src="static/assets/other.png">
                 {% endif %}
 			</div>
-			<a href="{{url_for('recipe', recipe=recipe._id, name=recipe.recipe_name)}}">
+			
 				<div class="card-stacked">
+                    <a href="{{url_for('recipe', recipe=recipe._id, name=recipe.recipe_name)}}">
 					<div class="card-content">
-                        {% set date=recipe.time_stamp %}
-                        {% if date_check(date) == True %}
-                            <span class="new badge"></span>
-                        {% else %}
-
-                        {% endif %}
+                        
 						<h5>{{recipe.recipe_name}}</h5>
 						<p>Serves: {{recipe.serves}}</p>
 						<p>Time to cook: {{recipe.time}}</p>
 					</div>
+                    </a>
 					<div class="card-action">
                         {% if in_cookbook(recipe.cookbook, current_user.username) == True %}
                             <p>Already in your cookbook</p>
@@ -72,7 +76,7 @@
                         {% endif %}
                     </div>
 				</div>
-            </a>
+            
 		</div>
 		
 	</div>

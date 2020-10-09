@@ -82,7 +82,7 @@
 
 .card-content{
     height: 170px;
-    display: table-row;
+    overflow: scroll;
 }
 
 .card-content h5,

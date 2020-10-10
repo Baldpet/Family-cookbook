@@ -96,7 +96,7 @@ def add_recipe():
 def search_recipes():
     # route to the page to search for other recipes on the app
     return render_template('searchrecipes.html',
-                           recipes=mongo.db.recipes.find(),
+                           recipes=mongo.db.recipes.find({'original': True}),
                            ingredients=mongo.db.main_ingredients.find())
 
 
@@ -125,7 +125,39 @@ def my_cookbook(username):
     # route to the cookbook of the user, shows the recipes they have saved
     return render_template('mycookbook.html',
                            recipes=mongo.db.recipes.find({
-                               'cookbook': username}))
+                               'cookbook': username}),
+                           ingredients=mongo.db.main_ingredients.find())
+
+
+@app.route('/amend/<recipeID>')
+@login_required
+def recipe_amend(recipeID):
+    '''
+        route to the amend recipe page,
+        which will automatically fill in the various fields
+    '''
+    recipe = ObjectId(recipeID)
+    return render_template('recipeamend.html',
+                           ingredients=mongo.db.main_ingredients.find(),
+                           recipe=mongo.db.recipes.find({'_id': recipe}))
+
+
+@app.route('/amend')
+@login_required
+def add_recipe_amend(recipeID):
+    # if request.method == 'POST':
+
+    return redirect(url_for('my_cookbook'))
+
+
+@app.route('/myuploaded/<username>')
+@login_required
+def my_uploaded(username):
+    # route to the users uploaded recipes, where they can manage them
+    return render_template('uploadedrecipes.html',
+                           recipes=mongo.db.recipes.find({
+                               'orignal_user': username}),
+                           ingredients=mongo.db.main_ingredients.find())
 
 
 @app.route('/recipe/<recipe>/<name>')
@@ -226,7 +258,8 @@ def add_recipe_form():
             'time_stamp': datetime.datetime.now(),
             'orignal_user': current_user.username,
             'cookbook': [current_user.username],
-            'love': 0
+            'love': 0,
+            'original': True
         })
         flash('submitted')
     return redirect(url_for('add_recipe'))

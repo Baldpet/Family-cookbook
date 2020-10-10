@@ -1,15 +1,92 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <h1>Search Recipes</h1>
-    {% for recipe in recipes %}
-    <div class="recipe">
-        <h3>{{recipe.recipe_name}}</h3>
-        <p>{{recipe.time}}</p>
-        <p>{{recipe.serves}}</p>
-        <a  href="{{url_for('add_cookbook', recipe=recipe._id)}}" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+    <div class="row center-align">
+        <h1>Search Recipes</h1>
     </div>
+    <form method="POST">
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="input-field">
+                    <select name="main_ingredient" required>
+                    <option value="none" selected>All</option>
+                    {% for ingredient in ingredients %}
+                    <option value="{{ingredient.ingredient}}">{{ingredient.ingredient.capitalize()}}</option>
+                    {% endfor %}
+                    </select>
+                    <label>Search by Main Ingredient</label>
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="input-field">
+                    <input placeholder="Recipe name" name="recipe_name" id="recipe_name" type="text" class="validate">
+                    <label for="recipe_name">Currently not working - Seach by Recipe Name</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="row center-align">
+            <a type="submit" value="Submit" class="waves-effect waves-light btn filter">Search</a>
+        </div>
+    </form>
+    <div class="row">
+    {% for recipe in recipes %}
+	  <div class="col s12 l6 recipe">
+      
+		<div class="card horizontal">
+            {% set date=recipe.time_stamp %}
+                        {% if date_check(date) == True %}
+                            <span class="new badge"></span>
+                        {% else %}
+
+                        {% endif %}
+			<div class="card-image valign-wrapper">
+                {% if recipe.main_ingredient == 'poultry' %}
+				    <img class="poultry" src="static/assets/chicken.png">
+                {% elif recipe.main_ingredient == 'pork' %}
+                    <img class="pork" src="static/assets/pork.png">
+                {% elif recipe.main_ingredient == 'beef' %}
+                    <img class="beef" src="static/assets/cow.png">
+                {% elif recipe.main_ingredient == 'fish' %}
+                    <img class="fish" src="static/assets/fish.png">
+                {% elif recipe.main_ingredient == 'vegetarian' %}
+                    <img class="vegetarian" src="static/assets/corn.png">
+                {% elif recipe.main_ingredient == 'vegan' %}
+                    <img class="vegan" src="static/assets/vegan.jpg">
+                {% else %}
+                    <img class="other" src="static/assets/other.png">
+                {% endif %}
+			</div>
+			
+				<div class="card-stacked">
+                    <a href="{{url_for('recipe', recipe=recipe._id, name=recipe.recipe_name)}}">
+					<div class="card-content">
+                        
+						<h5>{{recipe.recipe_name.title()}}</h5>
+						<p>Serves: {{recipe.serves}}</p>
+						<p>Time to cook: {{recipe.time}}</p>
+					</div>
+                    </a>
+					<div class="card-action">
+                        {% if in_cookbook(recipe.cookbook, current_user.username) == True %}
+                            <p>Already in your cookbook</p>
+                        {% else %}
+						<a href="{{url_for('add_cookbook', recipe=recipe._id, love=recipe.love)}}"
+							class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons">add</i></a><span>Add to cookbook</span>
+                        {% endif %}
+                    </div>
+				</div>
+            
+		</div>
+		
+	</div>
+	
     {% endfor %}
+    </div>
 </div>
 
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="static/js/filter.js"></script>
 {% endblock %}

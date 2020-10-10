@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <div class="row center-align">
-        <h1>My Cookbook</h1>
+        <h1>Uploaded recipes</h1>
     </div>
 	<form method="POST">
 		<div class="row">
@@ -58,13 +58,13 @@
 					<div class="card-content">
                         
 						<h5>{{recipe.recipe_name.title()}}</h5>
-						<p>Serves: {{recipe.serves}}</p>
-						<p>Time to cook: {{recipe.time}}</p>
+						<p>Number of adds to cookbooks: {{recipe.love}}</p>
+
 					</div>
                     </a>
 					<div class="card-action">
-                        <a href="{{url_for('recipe_amend', recipeID=recipe._id)}}" class="waves-effect waves-light btn">Amend</a>
-                        <a href="{{url_for('remove_cookbook', recipeID=recipe._id)}}" class="btn-floating btn-small waves-effect waves-light red remove"><i class="material-icons">remove</i></a>
+                        <a href="#" class="waves-effect waves-light btn">Amend</a>
+                        <a class="btn-floating btn-small waves-effect waves-light red remove"><i class="material-icons">remove</i></a>
                     </div>
 				</div>
             

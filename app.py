@@ -91,21 +91,54 @@ def add_recipe():
                            ingredients=mongo.db.main_ingredients.find())
 
 
-@app.route('/find-a-recipe')
+@app.route('/add-recipe/submit', methods=['POST', 'GET'])
+def add_recipe_form():
+    '''
+        Form to submit a new recipe to the database
+    '''
+    if request.method == 'POST':
+        recipe = mongo.db.recipes
+        recipe.insert_one({
+            'recipe_name': request.form.get('recipe_name').lower(),
+            'main_ingredient': request.form.get('main_ingredient'),
+            'ingredients': request.form.getlist('ingredients'),
+            'serves': request.form.get('serves'),
+            'time': request.form.get('time'),
+            'method': request.form.getlist('method'),
+            'time_stamp': datetime.datetime.now(),
+            'original_user': current_user.username,
+            'cookbook': [current_user.username],
+            'love': 0,
+            'original': True
+        })
+        flash('submitted')
+    return redirect(url_for('add_recipe'))
+
+
+@app.route('/find-a-recipe', methods=['POST', 'GET'])
 @login_required
 def search_recipes():
     # route to the page to search for other recipes on the app
     return render_template('searchrecipes.html',
-                           recipes=mongo.db.recipes.find())
+                           recipes=mongo.db.recipes.find({'original': True}),
+                           ingredients=mongo.db.main_ingredients.find())
 
 
-@app.route('/find-a-recipe/<recipe>')
-def add_cookbook(recipe):
-    # will add the recipe to the user's cookbook.
+@app.route('/find-a-recipe/<recipe>/<love>')
+def add_cookbook(recipe, love):
+    '''
+    adds the recipe from the search menu to the user's cookbook.
+    also adds another number on to the love list for the orignal user.
+    '''
     recipe_id = ObjectId(recipe)
+    numberAdd = int(love) + 1
     mongo.db.recipes.update_one(
         {"_id": recipe_id},
         {'$push': {'cookbook': current_user.username}}
+    )
+    mongo.db.recipes.update_one(
+        {"_id": recipe_id},
+        {'$set': {"love": numberAdd}}
     )
     return redirect(url_for('search_recipes'))
 
@@ -116,7 +149,91 @@ def my_cookbook(username):
     # route to the cookbook of the user, shows the recipes they have saved
     return render_template('mycookbook.html',
                            recipes=mongo.db.recipes.find({
-                               'cookbook': username}))
+                               'cookbook': username}),
+                           ingredients=mongo.db.main_ingredients.find())
+
+
+@app.route('/amend/<recipeID>', methods=['POST', 'GET'])
+@login_required
+def recipe_amend(recipeID):
+    '''
+        route to the amend recipe page,
+        which will automatically fill in the various fields
+    '''
+    recipe = ObjectId(recipeID)
+    return render_template('recipeamend.html',
+                           ingredients=mongo.db.main_ingredients.find(),
+                           recipe=mongo.db.recipes.find({'_id': recipe}))
+
+
+@app.route('/amended/<recipeID>/<recipe_name>/<main_ingredient>/<serves>/<time>/<ingredients>/<method>', methods=['POST', 'GET'])
+@login_required
+def add_recipe_amend(recipeID, recipe_name, main_ingredient, serves, time, ingredients, method):
+    database = mongo.db.recipes
+    recipe = ObjectId(recipeID)
+    amended_recipe_name = request.form.get('recipe_name').lower()
+    amended_main_ingredient = request.form.get('main_ingredient').lower()
+    amended_serves = request.form.get('serves')
+    amended_time = request.form.get('time')
+    amended_ingredients = request.form.getlist('ingredients')
+    amended_method = request.form.getlist('method')
+    if request.method == 'POST':
+        if recipe_name == amended_recipe_name and main_ingredient == amended_main_ingredient and serves == amended_serves and time == amended_time and ingredients == amended_ingredients and method == amended_method:
+            flash('unsucessful, not amendments were made')
+            return redirect(url_for('recipe_amend', recipeID=recipeID))
+        else:
+            cookbook_array = database.find({'_id': recipe})
+            cookbook_array_len = len(cookbook_array[0]['cookbook'])
+            if cookbook_array_len == 1 and not cookbook_array[0]['original']:
+                database.delete_one({'_id': recipe})
+            else:
+                database.update({'_id': recipe},
+                                {'$pull': {'cookbook': current_user.username}})
+            database.insert_one({
+                'recipe_name': request.form.get('recipe_name').lower(),
+                'main_ingredient': request.form.get('main_ingredient'),
+                'ingredients': request.form.getlist('ingredients'),
+                'serves': request.form.get('serves'),
+                'time': request.form.get('time'),
+                'method': request.form.getlist('method'),
+                'time_stamp': datetime.datetime.now(),
+                'original_user': current_user.username,
+                'cookbook': [current_user.username],
+                'love': 0,
+                'original': False
+            })
+    return redirect(url_for('my_cookbook', username=current_user.username))
+
+
+@app.route('/remove-cookbook/<recipeID>')
+@login_required
+def remove_cookbook(recipeID):
+    recipe = ObjectId(recipeID)
+    mongo.db.recipes.update({'_id': recipe},
+                            {'$pull': {'cookbook': current_user.username}})
+    return redirect(url_for('my_cookbook', username=current_user.username))
+
+
+@app.route('/myuploaded/<username>')
+@login_required
+def my_uploaded(username):
+    # route to the users uploaded recipes, where they can manage them
+    return render_template('uploadedrecipes.html',
+                           recipes=mongo.db.recipes.find({
+                               'orignal_user': username}),
+                           ingredients=mongo.db.main_ingredients.find())
+
+
+@app.route('/recipe/<recipe>/<name>')
+@login_required
+def recipe(recipe, name):
+    '''
+        Will render the recipe template of the selected recipe.
+    '''
+    recipeID = ObjectId(recipe)
+    return render_template('recipe.html',
+                           recipe=mongo.db.recipes.find({
+                               '_id': recipeID}))
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -188,27 +305,26 @@ def sign_up_user():
     return redirect(url_for('sign_up'))
 
 
-@app.route('/add-recipe/submit', methods=['POST', 'GET'])
-def add_recipe_form():
-    '''
-        Form to submit a new recipe to the database
-    '''
-    if request.method == 'POST':
-        recipe = mongo.db.recipes
-        recipe.insert_one({
-            'recipe_name': request.form.get('recipe_name').lower(),
-            'main_ingredient': request.form.get('main_ingredient'),
-            'ingredients': request.form.getlist('ingredients'),
-            'serves': request.form.get('serves'),
-            'time': request.form.get('time'),
-            'method': request.form.getlist('method'),
-            'time_stamp': datetime.datetime.now(),
-            'orignal_user': current_user.username,
-            'cookbook': [current_user.username]
-        })
-        flash('submitted')
-    return redirect(url_for('add_recipe'))
+def date_check(date):
+    time_since_upload = datetime.datetime.now() - date
 
+    if time_since_upload.days < 7:
+        return True
+    else:
+        return False
+
+
+app.jinja_env.globals.update(date_check=date_check)
+
+
+def in_cookbook(cookbook, username):
+    if username in cookbook:
+        return True
+    else:
+        return False
+
+
+app.jinja_env.globals.update(in_cookbook=in_cookbook)
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=int(

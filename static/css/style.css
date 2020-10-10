@@ -34,10 +34,6 @@
     margin: auto;
 }
 
-.home-link{
-
-}
-
 .home-box-center{
     margin: auto;
     max-width: 50%;
@@ -49,6 +45,80 @@
     display: inline;
     margin-left: 1rem;
 }
+
+/* Recipe view*/
+
+#ingredient li{
+    list-style-type: disc;
+}
+
+/* Recipe card*/
+
+.recipe{
+    display: inline;
+}
+
+.recipe .card{
+    height: 250px;
+}
+
+.card.horizontal .card-image{
+    max-width: 25%;
+    max-height: 100%;
+}
+
+.card.horizontal .card-image img{
+    max-height: 100%;
+}
+
+.card .card-action{
+    height: 80px;
+    padding: 16px 16px;
+}
+
+.card-action span{
+    margin-left: 1rem;
+}
+
+.card-stacked{
+    min-height: 170px;
+}
+
+.card-stacked a{
+    height: 100%;
+}
+
+.card-stacked a.btn{
+    height: 36px;
+}
+
+.card-stacked a.btn-small{
+    height: 40px;
+    float: right;
+}
+
+.card-content{
+    height: 170px;
+    display: contents;
+}
+
+.card-content h5,
+.card .card-content p{
+    margin-left: 1rem;
+}
+
+span.badge{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+/* Recipe search */
+
+.display-none{
+    display: none;
+}
+
 
 /* Media queries */
 

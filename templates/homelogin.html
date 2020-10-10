@@ -16,14 +16,14 @@
 		<div class="col s6">
             <a class="home-link" href="{{url_for('add_recipe')}}">
                 <div class="home-box valign-wrapper">
-                    <p class="home-box-center">Add a recipe for the rest of the world to enjoy!</p>
+                    <p class="home-box-center">Add a recipe!</p>
                 </div>
             </a>
 		</div>
 		<div class="col s6">
             <a class="home-link" href="{{url_for('search_recipes')}}">
                 <div class="home-box valign-wrapper">
-                    <p class="home-box-center">Pad out your cookbook with some fantastic recipes uploaded by our users</p>
+                    <p class="home-box-center">Find a recipe!</p>
                 </div>
             </a>
 		</div>
@@ -32,14 +32,14 @@
 		<div class="col s6">
             <a class="home-link" href="{{url_for('my_cookbook', username=current_user.username)}}">
                 <div class="home-box valign-wrapper">
-                    <p class="home-box-center">View and edit the recipes in your cookbook</p>
+                    <p class="home-box-center">View your favourites in your cookbook</p>
                 </div>
             </a>
 		</div>
 		<div class="col s6">
-            <a class="home-link" href="#">
+            <a class="home-link" href="{{url_for('my_uploaded', username=current_user.username)}}">
                 <div class="home-box valign-wrapper">
-                   <p class="home-box-center">Check out the recipes you've uploaded</p>
+                   <p class="home-box-center">Your uploaded recipes</p>
                 </div>
             </a>
 		</div>
@@ -47,7 +47,7 @@
 </div>
 
 {% endblock %}
-
+{% block basejs %}../{% endblock %}
 {% block js %}
 
 {% endblock %}

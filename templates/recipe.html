@@ -1,7 +1,54 @@
 {% extends "base.html" %}
+{% block css %}../../{% endblock %}
 {% block content %}
 <div class="container">
-    <h1>Recipe</h1>
+    {% for recipe in recipe %}
+        <div class="row">
+            <div class="col s12 ">
+                <h1>{{recipe.recipe_name.title()}}</h1>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col s6">
+                Serves: {{recipe.serves}}
+            </div>
+            <div class="col s6">
+                Time: {{recipe.time}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="">
+                <h4>Ingredients</h4>
+            </div>
+                <ul id="ingredient">
+                    {% for ingredient in recipe.ingredients %}
+                        <div class="col s6">
+                        {% if loop.index % 2 != 0 %}
+                        
+                            <li>{{ingredient.capitalize()}}</li>
+                                            
+                        {% endif %}
+                        </div>  
+                        <div class="col s6">
+                        {% if loop.index % 2 == 0 %}
+                        
+                            <li>{{ingredient.capitalize()}}</li>
+                                            
+                        {% endif %}
+                        </div>  
+                    {% endfor %}
+                </ul>
+            
+        </div>
+        <div class="row">
+            <div class="col s12">
+            <h4>Method</h4>
+                {% for step in recipe.method %}
+                    <p><span>Step {{loop.index}} : </span> {{step}} </p>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
 </div>
 
 {% endblock %}

@@ -5,10 +5,9 @@
 <div class="container">
     <div class="row center-align">
         <h1>Amend Your Recipe</h1>
-        <h3>{{recipe_name}}</h3>
     </div>
     <div class="row">
-        <form action="#" method="POST" class="col s12">
+        <form action="{{url_for('add_recipe_amend', recipeID=recipe._id, recipe_name=recipe.recipe_name, main_ingredient=recipe.main_ingredient, serves=recipe.serves, time=recipe.time, ingredients=recipe.ingredients, method=recipe.method)}}" method="POST" class="col s12">
         <div class="row">
             <div class="input-field col s12 m10 l8 offset-m1 offset-l2">
                 <input value="{{recipe.recipe_name.capitalize()}}" id="recipe_name" name="recipe_name" type="text" class="validate" required>
@@ -18,7 +17,7 @@
         <div class="row">
             <div class="input-field col s12 m10 l8 offset-m1 offset-l2">
                 <select name="main_ingredient" required>
-                <option value="" disabled selected>{{recipe.main_ingredient.capitalize()}}</option>
+                <option value="" disabled selected>Choose your option</option>
                 {% for ingredient in ingredients %}
                 <option value="{{ingredient.ingredient}}">{{ingredient.ingredient.capitalize()}}</option>
                 {% endfor %}

@@ -80,6 +80,23 @@
     margin-left: 1rem;
 }
 
+.card-stacked{
+    min-height: 170px;
+}
+
+.card-stacked a{
+    height: 100%;
+}
+
+.card-stacked a.btn{
+    height: 36px;
+}
+
+.card-stacked a.btn-small{
+    height: 40px;
+    float: right;
+}
+
 .card-content{
     height: 170px;
     display: contents;

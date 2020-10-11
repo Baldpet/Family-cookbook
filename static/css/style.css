@@ -4,6 +4,16 @@
     width: 180px;
 }
 
+/* Footer */
+
+.logo-link{
+    width: 32px;
+}
+
+.logo-list li{
+    display: inline-block;
+}
+
 /* Hero Image and Index page */
 .hero-row{
     height: 80vh;

@@ -183,6 +183,10 @@ span.badge{
     }
     #sign-in-form{
     padding: 50px;
+    }
+    p {
+        font-size: 16px;
+    }
 }
 
 @media only screen and (max-width: 601px){
@@ -197,5 +201,8 @@ span.badge{
     }
     .card-panel h4{
         font-size: 22px;
+    }
+    p {
+        font-size: 15px;
     }
 }

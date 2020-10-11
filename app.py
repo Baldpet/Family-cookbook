@@ -269,7 +269,6 @@ def login():
             if user and userPassword:
                 user_obj = User(user['username'])
                 login_user(user_obj)
-                flash("Logged in successfully")
                 return redirect(request.args.get("next") or url_for(
                     "home_login", username=user['username']))
         flash("Wrong Username or Password entered, please try again.")

@@ -4,6 +4,13 @@
     color: red;
 }
 
+/* Throughout Site */
+
+p{
+    font-size: 18px;
+}
+
+
 /* Navbar */
 
 .nav-logo{

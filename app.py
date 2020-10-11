@@ -257,7 +257,7 @@ def login():
                 flash("Logged in successfully")
                 return redirect(request.args.get("next") or url_for(
                     "home_login", username=user['username']))
-        flash("Wrong username or password")
+        flash("Wrong Username or Password entered, please try again.")
     return redirect(url_for('home'))
 
 

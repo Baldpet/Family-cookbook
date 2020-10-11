@@ -1,3 +1,9 @@
+/* Flask Messages */
+
+.message-red{
+    color: red;
+}
+
 /* Navbar */
 
 .nav-logo{
@@ -14,9 +20,21 @@
     display: inline-block;
 }
 
+
+
 /* Hero Image and Index page */
 .hero-row{
     height: 80vh;
+    margin-bottom: 0px;
+}
+
+.cover{
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    opacity: 30%;
+    z-index: 2;
+    position: absolute;
 }
 
 .hero-img{
@@ -26,6 +44,11 @@
     background-repeat: no-repeat;
     background-size: cover;
     text-align: center;
+    z-index: 1;
+}
+
+.cover-form{
+    opacity: 100%;
 }
 
 .sign-in-form-outer{
@@ -33,11 +56,17 @@
     background-color:  white;
     max-width: 90%;
     margin: auto;
+    border-radius: 25px;
+    z-index: 3;
 }
 
-.sign-in-form-inner{
-    background-color: inherit;
-    padding: 0.5rem;
+#sign-in-form{
+    padding: 100px;
+    z-index: 4;
+}
+
+#signup{
+    margin-top: 3rem;
 }
 
 /* Login Home */
@@ -141,6 +170,8 @@ span.badge{
     .hero-row{
         height: 70vh;
     }
+    #sign-in-form{
+    padding: 50px;
 }
 
 @media only screen and (max-width: 601px){
@@ -150,4 +181,7 @@ span.badge{
     .nav-logo{
         width: 160px;
     }
+    #sign-in-form{
+    padding: 20px;
+}
 }

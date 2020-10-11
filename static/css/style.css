@@ -30,9 +30,9 @@
 
 .sign-in-form-outer{
     display: inline-block;
-    margin-top: 30vh;
     background-color:  white;
     max-width: 90%;
+    margin: auto;
 }
 
 .sign-in-form-inner{
@@ -141,17 +141,11 @@ span.badge{
     .hero-row{
         height: 70vh;
     }
-    .sign-in-form-outer{
-        margin-top: 20vh
-    }
 }
 
 @media only screen and (max-width: 601px){
     .hero-row{
-        height: 50vh;
-    }
-    .sign-in-form-outer{
-        margin-top: 10vh
+        height: 70vh;
     }
     .nav-logo{
         width: 160px;

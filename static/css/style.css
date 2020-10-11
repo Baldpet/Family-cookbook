@@ -10,9 +10,6 @@ p{
     font-size: 18px;
 }
 
-
-
-
 /* Navbar */
 
 .nav-logo{
@@ -180,6 +177,11 @@ span.badge{
     display: none;
 }
 
+/* display overwrite */
+
+.tooltip-hidden{
+    display: none;
+}
 
 /* Media queries */
 
@@ -192,6 +194,9 @@ span.badge{
     }
     p {
         font-size: 16px;
+    }
+    .tooltip-hidden{
+        display: initial;
     }
 }
 

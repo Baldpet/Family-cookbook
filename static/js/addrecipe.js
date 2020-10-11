@@ -1,3 +1,7 @@
+$(".remove").click(function(){
+        $(this).parent().parent().remove()
+        Materialize.Toast.removeAll();
+    })
 
 /* Allows the buttons to add another ingredient line and remove one if needed */
 $("#addingredient").click(function(){
@@ -5,6 +9,9 @@ $("#addingredient").click(function(){
     $(".remove").click(function(){
         $(this).parent().parent().remove()
     })
+    $(document).ready(function(){
+    $('.tooltipped').tooltip({delay: 50});
+  });
 });
 
 /* Allows the buttons to add another method line and remove one if needed */
@@ -13,4 +20,7 @@ $("#addmethod").click(function () {
     $(".remove").click(function(){
         $(this).parent().parent().remove()
     })
+    $(document).ready(function(){
+    $('.tooltipped').tooltip({delay: 50});
+  });
 });

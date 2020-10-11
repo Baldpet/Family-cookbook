@@ -170,6 +170,17 @@ def recipe_amend(recipeID):
 @app.route('/amended/<recipeID>/<recipe_name>/<main_ingredient>/<serves>/<time>/<ingredients>/<method>', methods=['POST', 'GET'])
 @login_required
 def add_recipe_amend(recipeID, recipe_name, main_ingredient, serves, time, ingredients, method):
+    """
+        Checks to see if the recipe has changed from the original, if it has not then
+        it will return to the amend recipe html.
+
+        If the recipe has changed it will check to see how many users are in the cookbook, if
+        there are only 1 user and it is not an original recipe then it will delete the recipe in the database
+        to keep the documents in the database low.
+
+        The new recipe is then entered into the database as a 'non-original'. This recipe only appears in the
+        users cookbook and does not appear to any other users in the search recipes.
+    """
     database = mongo.db.recipes
     recipe = ObjectId(recipeID)
     amended_recipe_name = request.form.get('recipe_name').lower()
@@ -209,6 +220,9 @@ def add_recipe_amend(recipeID, recipe_name, main_ingredient, serves, time, ingre
 @app.route('/remove-cookbook/<recipeID>')
 @login_required
 def remove_cookbook(recipeID):
+    """
+    removes the user from the cookbook of the recipe, they no longer can see the recipe in their cookbook
+    """
     recipe = ObjectId(recipeID)
     mongo.db.recipes.update({'_id': recipe},
                             {'$pull': {'cookbook': current_user.username}})
@@ -307,6 +321,10 @@ def sign_up_user():
 
 
 def date_check(date):
+    """
+    Checks to see how long ago the recipe was uploaded.
+    If the recipe was less than 7 days returns True.
+    """
     time_since_upload = datetime.datetime.now() - date
 
     if time_since_upload.days < 7:
@@ -319,6 +337,10 @@ app.jinja_env.globals.update(date_check=date_check)
 
 
 def in_cookbook(cookbook, username):
+    """
+    Checks to see if the user is in a cookbook.
+    If they are then it returns True.
+    """
     if username in cookbook:
         return True
     else:

@@ -1,3 +1,8 @@
+/* Navbar */
+
+.nav-logo{
+    width: 180px;
+}
 
 /* Hero Image and Index page */
 .hero-row{
@@ -137,5 +142,8 @@ span.badge{
     }
     .sign-in-form-outer{
         margin-top: 10vh
+    }
+    .nav-logo{
+        width: 160px;
     }
 }

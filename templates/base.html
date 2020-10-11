@@ -11,7 +11,7 @@
 <body>
 	<nav>
 		<div class="nav-wrapper">
-			<a href="{{url_for('home')}}" class="brand-logo">Logo</a>
+			<a href="{{url_for('home')}}" class="brand-logo center"><img class="nav-logo" src="static/assets/logo3.png" alt="logo"></a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<li><a href="{{url_for('home')}}">Home</a></li>
@@ -40,11 +40,11 @@
             </ul>
 		</div>
 	</nav>
-
+    <main>
     {% block content %}
 
     {% endblock %}
-
+    </main>
 	<footer class="page-footer">
 		<div class="container">
 			<div class="row">

@@ -19,32 +19,47 @@
 	<div class="row">
 		<div class="col s6">
             <a class="home-link" href="{{url_for('add_recipe')}}">
-                <div class="home-box valign-wrapper">
+				<div class="card-panel teal center-align">
+                    <h4 class="white-text">Add a Recipe</h4>
+					<i class="material-icons md-36 white-text">
+					restaurant_menu
+					</i>
+				</div>
+                <!--<div class="home-box valign-wrapper">
                     <p class="home-box-center">Add a recipe!</p>
-                </div>
+                </div>-->
             </a>
 		</div>
 		<div class="col s6">
             <a class="home-link" href="{{url_for('search_recipes')}}">
-                <div class="home-box valign-wrapper">
-                    <p class="home-box-center">Find a recipe!</p>
-                </div>
+                <div class="card-panel teal center-align">
+                    <h4 class="white-text">Find a Recipe</h4>
+					<i class="material-icons md-36 white-text">
+					search
+					</i>
+				</div>
             </a>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col s6">
             <a class="home-link" href="{{url_for('my_cookbook', username=current_user.username)}}">
-                <div class="home-box valign-wrapper">
-                    <p class="home-box-center">View your favourites in your cookbook</p>
-                </div>
+                <div class="card-panel teal center-align">
+                    <h4 class="white-text">View Your Cookbook</h4>
+					<i class="material-icons md-36 white-text">
+					menu_book
+					</i>
+				</div>
             </a>
 		</div>
 		<div class="col s6">
             <a class="home-link" href="{{url_for('my_uploaded', username=current_user.username)}}">
-                <div class="home-box valign-wrapper">
-                   <p class="home-box-center">Your uploaded recipes</p>
-                </div>
+                <div class="card-panel teal center-align">
+                    <h4 class="white-text">Your Uploaded Recipes</h4>
+					<i class="material-icons md-36 white-text">
+					favorite
+					</i>
+				</div>
             </a>
 		</div>
 	</div>

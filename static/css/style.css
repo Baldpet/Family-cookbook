@@ -83,6 +83,10 @@
     max-width: 50%;
 }
 
+.card-panel i{
+    font-size: 36px;
+}
+
 /* Recipe form */
 
 .recipe-form-add{
@@ -183,5 +187,8 @@ span.badge{
     }
     #sign-in-form{
     padding: 20px;
-}
+    }
+    .card-panel h4{
+        font-size: 22px;
+    }
 }

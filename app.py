@@ -144,6 +144,7 @@ def add_cookbook(recipe, love):
 
 
 @app.route('/mycookbook/<username>')
+@app.route('/mycookbook/')
 @login_required
 def my_cookbook(username):
     # route to the cookbook of the user, shows the recipes they have saved

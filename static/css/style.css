@@ -11,6 +11,8 @@ p{
 }
 
 
+
+
 /* Navbar */
 
 .nav-logo{
@@ -115,6 +117,8 @@ p{
 
 .recipe .card{
     height: 250px;
+    background-color: #EFF6EE;
+    
 }
 
 .card.horizontal .card-image{
@@ -141,10 +145,12 @@ p{
 
 .card-stacked a{
     height: 100%;
+    color: black;
 }
 
 .card-stacked a.btn{
     height: 36px;
+    color: white;
 }
 
 .card-stacked a.btn-small{

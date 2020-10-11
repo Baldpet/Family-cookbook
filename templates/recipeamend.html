@@ -1,5 +1,9 @@
 {% extends "base.html" %}
-{% block css %}../{% endblock %}
+{% block css %}../../{% endblock %}
+{% block logo %}../../{% endblock %}
+{% block linkedin %}../../{% endblock %}
+{% block github %}../../{% endblock %}
+{% block basejs %}../../{% endblock %}
 {% block content %}
 {% for recipe in recipe %}
 <div class="container">
@@ -112,7 +116,7 @@
   </div>
 {% endfor %}
 {% endblock %}
-{% block basejs %}../{% endblock %}
+
 {% block js %}
     <script type="text/javascript" src="../static/js/addrecipe.js"></script>
 {% endblock %}

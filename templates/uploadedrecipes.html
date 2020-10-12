@@ -67,19 +67,40 @@
 					</div>
                     </a>
 					<div class="card-action">
-                        <a class="btn-floating btn-small waves-effect waves-light red modal-trigger" href="#modal{{loop.index}}"><i class="material-icons">remove</i></a>
+                        {% if recipe.cookbook|length == 0  %}
+                            
+                            <a class="btn-floating btn-small waves-effect waves-light red modal-trigger" href="#modal{{loop.index}}"><i class="material-icons">remove</i></a>
 
-						<div id="modal{{loop.index}}" class="modal">
-							<div class="modal-content">
-								<h4 class="message-red">WARNING!</h4>
-								<p>This will remove your uploaded recipe from The Family Cookbook.</p>
-                                <p>Are you sure?</p>
-							</div>
-							<div class="modal-footer">
-                                <a href="#!" class="modal-action modal-close waves-effect waves-green btn ">Keep Recipe</a>
-								<a href="#!" class="modal-action modal-close btn modal-warning">Remove</a>
-							</div>
-						</div>
+                            <div id="modal{{loop.index}}" class="modal">
+                                <div class="modal-content">
+                                    <h4 class="message-red">WARNING!</h4>
+                                    <p>This will remove your uploaded recipe from The Family Cookbook.</p>
+                                    <p>Are you sure?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn ">Keep Recipe</a>
+                                    <a href="{{url_for('remove_recipe', recipeID=recipe._id)}}" class="modal-action modal-close btn modal-warning">Remove</a>
+                                </div>
+                            </div>
+                        {% elif current_user.username in recipe.cookbook and recipe.cookbook|length == 1 %}
+                            <a class="btn-floating btn-small waves-effect waves-light red modal-trigger" href="#modal{{loop.index}}"><i class="material-icons">remove</i></a>
+
+                            <div id="modal{{loop.index}}" class="modal">
+                                <div class="modal-content">
+                                    <h4 class="message-red">WARNING!</h4>
+                                    <p>This will remove your uploaded recipe from The Family Cookbook.</p>
+                                    <p>Are you sure?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn ">Keep Recipe</a>
+                                    <a href="{{url_for('remove_recipe', recipeID=recipe._id)}}" class="modal-action modal-close btn modal-warning">Remove</a>
+                                </div>
+                            </div>
+
+                        {% else %}
+                        <p class="">In other cookbooks, cannot amend.</p>
+
+                        {% endif %}
                     </div>
 				</div>
             

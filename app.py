@@ -239,6 +239,19 @@ def my_uploaded(username):
                            ingredients=mongo.db.main_ingredients.find())
 
 
+@app.route('/removerecipe/<recipeID>')
+@login_required
+def remove_recipe(recipeID):
+    """
+    Removes the recipe off the database.
+    Can only be done if not in any other user cookbook
+    This is checked on the HTML through an if statement
+    """
+    recipe = ObjectId(recipeID)
+    mongo.db.recipes.delete_one({'_id': recipe})
+    return redirect(url_for('my_uploaded', username=current_user.username))
+
+
 @app.route('/recipe/<recipe>/<name>')
 @login_required
 def recipe(recipe, name):
@@ -347,6 +360,7 @@ def in_cookbook(cookbook, username):
 
 
 app.jinja_env.globals.update(in_cookbook=in_cookbook)
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=int(

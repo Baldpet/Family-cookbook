@@ -4,6 +4,20 @@
     color: red;
 }
 
+.message-teal{
+    color: #26a69a;
+}
+
+/* Modal */
+
+.modal-warning{
+    background-color: #de2626;
+}
+
+.modal-warning.btn:hover{
+    background-color: red;
+}
+
 /* Throughout Site */
 
 p{

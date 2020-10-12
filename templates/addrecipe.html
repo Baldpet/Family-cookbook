@@ -3,7 +3,17 @@
 <div class="container">
     <div class="row center-align">
         <h1>Add a Recipe</h1>
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		<ul class=flashes>
+			{% for message in messages %}
+			<li><p class="message-teal">{{ message }}</p></li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+		{% endwith %}
     </div>
+
     <div class="row">
         <form action="{{url_for('add_recipe_form')}}" method="POST" class="col s12">
         <div class="row">
@@ -26,7 +36,7 @@
         <div class="row">
             <div class="input-field col s12 m10 l8 offset-m1 offset-l2">
                 <input id="serves" name="serves" type="text" class="validate" required>
-                <label for="serves">Number of people the recipe serves</label>
+                <label for="serves">Number of servings</label>
             </div>
         </div>
         <div class="row">
@@ -63,17 +73,7 @@
                 <p class="recipe-form-add tooltip-hidden">Add another cooking step</p>
             </div>
         </div>
-        <div class="row center-align">
-            {% with messages = get_flashed_messages() %}
-			{% if messages %}
-			<ul class=flashes>
-				{% for message in messages %}
-				<li>{{ message }}</li>
-				{% endfor %}
-			</ul>
-			{% endif %}
-			{% endwith %}
-			
+        <div class="row center-align">			
             <button class="submit-button btn waves-effect waves-light" type="submit" name="action">Submit
                 <i class="material-icons right">send</i>
             </button>

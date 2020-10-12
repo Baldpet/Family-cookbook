@@ -67,8 +67,19 @@
 					</div>
                     </a>
 					<div class="card-action">
-                        <a href="#" class="waves-effect waves-light btn">Amend</a>
-                        <a class="btn-floating btn-small waves-effect waves-light red remove"><i class="material-icons">remove</i></a>
+                        <a class="btn-floating btn-small waves-effect waves-light red modal-trigger" href="#modal{{loop.index}}"><i class="material-icons">remove</i></a>
+
+						<div id="modal{{loop.index}}" class="modal">
+							<div class="modal-content">
+								<h4 class="message-red">WARNING!</h4>
+								<p>This will remove your uploaded recipe from The Family Cookbook.</p>
+                                <p>Are you sure?</p>
+							</div>
+							<div class="modal-footer">
+                                <a href="#!" class="modal-action modal-close waves-effect waves-green btn ">Keep Recipe</a>
+								<a href="#!" class="modal-action modal-close btn modal-warning">Remove</a>
+							</div>
+						</div>
                     </div>
 				</div>
             

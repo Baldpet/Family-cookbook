@@ -111,7 +111,7 @@ def add_recipe_form():
             'love': 0,
             'original': True
         })
-        flash('submitted')
+        flash('Recipe Submitted! Feel free to add another.')
     return redirect(url_for('add_recipe'))
 
 
@@ -235,7 +235,7 @@ def my_uploaded(username):
     # route to the users uploaded recipes, where they can manage them
     return render_template('uploadedrecipes.html',
                            recipes=mongo.db.recipes.find({
-                               'orignal_user': username}),
+                               'original_user': username}),
                            ingredients=mongo.db.main_ingredients.find())
 
 

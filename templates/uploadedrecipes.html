@@ -7,7 +7,7 @@
 {% block content %}
 <div class="container">
     <div class="row center-align">
-        <h1>Uploaded recipes</h1>
+        <h1>Uploaded Recipes</h1>
     </div>
 	<form method="POST">
 		<div class="row">
@@ -62,8 +62,12 @@
 					<div class="card-content">
                         
 						<h5>{{recipe.recipe_name.title()}}</h5>
-						<p>Number of adds to cookbooks: {{recipe.love}}</p>
-
+					    <div class="heart-outer center-align">
+                            <span>Cookbook Adds</span>
+                            <div class="heart valign-wrapper">
+                                <p class="heart-center">{{recipe.love}}</p>
+                            </div>
+                        </div>
 					</div>
                     </a>
 					<div class="card-action">

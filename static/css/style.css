@@ -120,6 +120,23 @@ p{
     list-style-type: disc;
 }
 
+/* Uploaded view*/
+
+.heart{
+    background-image: url(../assets/heart.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    max-width: 80px;
+    height: 74px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.heart-outer .heart .heart-center {
+    margin: auto;
+    color: white;
+}
+
 /* Recipe card*/
 
 .recipe{

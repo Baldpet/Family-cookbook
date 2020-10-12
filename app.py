@@ -239,7 +239,8 @@ def my_uploaded(username):
     # route to the users uploaded recipes, where they can manage them
     return render_template('uploadedrecipes.html',
                            recipes=mongo.db.recipes.find({
-                               'original_user': username}),
+                               '$and':[{'original_user': username},
+                                        {'original': True}]}),
                            ingredients=mongo.db.main_ingredients.find())
 
 

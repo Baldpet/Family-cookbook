@@ -217,15 +217,19 @@ def add_recipe_amend(recipeID, recipe_name, main_ingredient, serves, time, ingre
     return redirect(url_for('my_cookbook', username=current_user.username))
 
 
-@app.route('/remove-cookbook/<recipeID>')
+@app.route('/remove-cookbook/<recipeID>/<love>')
 @login_required
-def remove_cookbook(recipeID):
+def remove_cookbook(recipeID, love):
     """
-    removes the user from the cookbook of the recipe, they no longer can see the recipe in their cookbook
+    Removes the user from the cookbook of the recipe, they no longer can see the recipe in their cookbook
+    Also reduces the 'love' number so that the tracking is acurate.
     """
     recipe = ObjectId(recipeID)
+    numberSub = int(love) - 1
     mongo.db.recipes.update({'_id': recipe},
                             {'$pull': {'cookbook': current_user.username}})
+    mongo.db.recipes.update({'_id': recipe},                       
+                            {'$set': {"love": numberSub}})
     return redirect(url_for('my_cookbook', username=current_user.username))
 
 

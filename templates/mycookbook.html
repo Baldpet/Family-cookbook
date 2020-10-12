@@ -78,7 +78,7 @@
 							</div>
 							<div class="modal-footer">
                                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn ">Keep Recipe</a>
-								<a href="{{url_for('remove_cookbook', recipeID=recipe._id)}}" class="modal-action modal-close btn modal-warning">Remove</a>
+								<a href="{{url_for('remove_cookbook', recipeID=recipe._id, love=recipe.love)}}" class="modal-action modal-close btn modal-warning">Remove</a>
 							</div>
 						</div>
                     </div>

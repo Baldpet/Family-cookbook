@@ -23,11 +23,11 @@ $('.filter').click(function(){
     } else {
         $('.recipe').addClass('display-none');
         $(search).parent().parent().parent().parent().parent().addClass('visible');
-        if ($("." + mainIngredient).parent().parent().parent().hasClass('visible')){
-            $(".visible").removeClass('display-none');
-        } else{
-
-        }
+        $("." + mainIngredient).parent().parent().parent().addClass('ingre-visible');
+        $('.visible.ingre-visible').removeClass('display-none');
+        
+        $('.recipe').removeClass('visible');
+        $('.recipe').removeClass('ingre-visible');
         $(search).parent().parent().parent().parent().parent().removeClass('visible');
     }
 })

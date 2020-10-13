@@ -67,14 +67,17 @@
 						<p>Time to cook: {{recipe.time}}</p>
 					</div>
                     </a>
-					<div class="card-action">
-                        {% if in_cookbook(recipe.cookbook, current_user.username) == True %}
-                            <p>Already in your cookbook</p>
-                        {% else %}
-						<a href="{{url_for('add_cookbook', recipe=recipe._id, love=recipe.love)}}"
-							class="btn-floating btn-small waves-effect waves-light green tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add to cookbook"><i class="material-icons">add</i></a><span class="tooltip-hidden">Add to cookbook</span>
-                        {% endif %}
-                    </div>
+                    {% if current_user.is_authenticated  %}
+                        <div class="card-action">
+                            {% if in_cookbook(recipe.cookbook, current_user.username) == True %}
+                                <p>Already in your cookbook</p>
+                            {% else %}
+                            <a href="{{url_for('add_cookbook', recipe=recipe._id, love=recipe.love)}}"
+                                class="btn-floating btn-small waves-effect waves-light green tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add to cookbook"><i class="material-icons">add</i></a><span class="tooltip-hidden">Add to cookbook</span>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                    {% endif %}
 				</div>
             
 		</div>

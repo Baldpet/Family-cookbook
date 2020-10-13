@@ -116,7 +116,6 @@ def add_recipe_form():
 
 
 @app.route('/find-a-recipe', methods=['POST', 'GET'])
-@login_required
 def search_recipes():
     # route to the page to search for other recipes on the app
     return render_template('searchrecipes.html',
@@ -249,7 +248,6 @@ def remove_recipe(recipeID):
 
 
 @app.route('/recipe/<recipe>/<name>')
-@login_required
 def recipe(recipe, name):
     '''
         Will render the recipe template of the selected recipe.

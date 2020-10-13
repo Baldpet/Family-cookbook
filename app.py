@@ -167,40 +167,31 @@ def recipe_amend(recipeID):
                            recipe=mongo.db.recipes.find({'_id': recipe}))
 
 
-@app.route('/amended/<recipeID>/<recipe_name>/<main_ingredient>/<serves>/<time>/<ingredients>/<method>', methods=['POST', 'GET'])
+@app.route('/amended/<recipeID>', methods=['POST', 'GET'])
 @login_required
-def add_recipe_amend(recipeID, recipe_name, main_ingredient, serves, time, ingredients, method):
+def add_recipe_amend(recipeID):
     """
-        Checks to see if the recipe has changed from the original, if it has not then
-        it will return to the amend recipe html.
-
-        If the recipe has changed it will check to see how many users are in the cookbook, if
-        there are only 1 user and it is not an original recipe then it will delete the recipe in the database
+        If the recipe has changed it will check to see how many
+        users are in the cookbook, if
+        there are only 1 user and it is not an original
+        recipe then it will delete the recipe in the database
         to keep the documents in the database low.
 
-        The new recipe is then entered into the database as a 'non-original'. This recipe only appears in the
-        users cookbook and does not appear to any other users in the search recipes.
+        The new recipe is then entered into the database as a 'non-original'.
+        This recipe only appears in the
+        users cookbook and does not appear
+        to any other users in the search recipes.
     """
     database = mongo.db.recipes
     recipe = ObjectId(recipeID)
-    amended_recipe_name = request.form.get('recipe_name').lower()
-    amended_main_ingredient = request.form.get('main_ingredient').lower()
-    amended_serves = request.form.get('serves')
-    amended_time = request.form.get('time')
-    amended_ingredients = request.form.getlist('ingredients')
-    amended_method = request.form.getlist('method')
     if request.method == 'POST':
-        if recipe_name == amended_recipe_name and main_ingredient == amended_main_ingredient and serves == amended_serves and time == amended_time and ingredients == amended_ingredients and method == amended_method:
-            flash('unsucessful, not amendments were made')
-            return redirect(url_for('recipe_amend', recipeID=recipeID))
+        cookbook_array = database.find({'_id': recipe})
+        cookbook_array_len = len(cookbook_array[0]['cookbook'])
+        if cookbook_array_len == 1 and not cookbook_array[0]['original']:
+            database.delete_one({'_id': recipe})
         else:
-            cookbook_array = database.find({'_id': recipe})
-            cookbook_array_len = len(cookbook_array[0]['cookbook'])
-            if cookbook_array_len == 1 and not cookbook_array[0]['original']:
-                database.delete_one({'_id': recipe})
-            else:
-                database.update({'_id': recipe},
-                                {'$pull': {'cookbook': current_user.username}})
+            database.update({'_id': recipe},
+                            {'$pull': {'cookbook': current_user.username}})
             database.insert_one({
                 'recipe_name': request.form.get('recipe_name').lower(),
                 'main_ingredient': request.form.get('main_ingredient'),

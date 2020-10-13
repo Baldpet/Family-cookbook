@@ -120,6 +120,19 @@ p{
     list-style-type: disc;
 }
 
+.no-wrap{
+    white-space: nowrap;
+}
+
+.divider{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.button-row{
+    margin-top: 30px;
+}
+
 /* Uploaded view*/
 
 .heart{

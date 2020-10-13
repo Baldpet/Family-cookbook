@@ -9,32 +9,33 @@
 <div class="container">
     {% for recipe in recipe %}
         <div class="row">
-            <div class="col s12 ">
+            <div class="col s12 center-align">
                 <h1>{{recipe.recipe_name.title()}}</h1>
             </div>
         </div>
         <div class="row ">
-            <div class="col s6">
-                Serves: {{recipe.serves}}
+            <div class="col s6 m4 offset-m2 center-align">
+                <p>Serves: {{recipe.serves}}</p>
             </div>
-            <div class="col s6">
-                Time: {{recipe.time}}
+            <div class="col s6 m4 center-align">
+                <p>Time: {{recipe.time}}</p>
             </div>
         </div>
+        <div class="divider"></div>
         <div class="row">
-            <div class="">
+            <div class="center-align">
                 <h4>Ingredients</h4>
             </div>
                 <ul id="ingredient">
                     {% for ingredient in recipe.ingredients %}
-                        <div class="col s6">
+                        <div class="col s6 m4 offset-m2">
                         {% if loop.index % 2 != 0 %}
                         
                             <li>{{ingredient.capitalize()}}</li>
                                             
                         {% endif %}
                         </div>  
-                        <div class="col s6">
+                        <div class="col s6 m4">
                         {% if loop.index % 2 == 0 %}
                         
                             <li>{{ingredient.capitalize()}}</li>
@@ -45,13 +46,29 @@
                 </ul>
             
         </div>
+        <div class="divider"></div>
         <div class="row">
             <div class="col s12">
-            <h4>Method</h4>
+                <div class="center-align">
+                    <h4>Method</h4>
+                </div>
+                
+                <table>
                 {% for step in recipe.method %}
-                    <p><span>Step {{loop.index}} : </span> {{step}} </p>
+                    <tr>
+                        <td class="no-wrap"><strong>Step {{loop.index}} :</strong></td>
+                        <td>{{step}}</td>
+                    </tr>
                 {% endfor %}
+                </table>
             </div>
+        </div>
+        <div class="row center-align button-row">
+            <a href="request.referral" class="waves-effect waves-light btn">Return</a>
+            {% if not current_user.username in recipe.cookbook %}
+                <a href="{{url_for('add_cookbook', recipe=recipe._id, love=recipe.love)}}" class="waves-effect waves-light btn">Add To Cookbook</a>
+            {% else %}
+            {% endif %}
         </div>
     {% endfor %}
 </div>

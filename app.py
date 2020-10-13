@@ -320,6 +320,8 @@ def sign_up_user():
                     'email': request.form.get('email').lower(),
                     'password': hash
                 })
+                user_obj = User(request.form.get('username').lower())
+                login_user(user_obj)
                 return redirect(url_for('home'))
             else:
                 flash('Error! Your password does not match')

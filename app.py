@@ -3,7 +3,8 @@ import datetime
 from flask import Flask, render_template, redirect, request, url_for, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from flask_login import LoginManager, login_user, logout_user, current_user, login_required
+from flask_login import LoginManager, login_user, logout_user
+from flask_login import current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 
 if os.path.exists("env.py"):
@@ -211,14 +212,15 @@ def add_recipe_amend(recipeID):
 @login_required
 def remove_cookbook(recipeID, love):
     """
-    Removes the user from the cookbook of the recipe, they no longer can see the recipe in their cookbook
+    Removes the user from the cookbook of the recipe,
+    they no longer can see the recipe in their cookbook
     Also reduces the 'love' number so that the tracking is acurate.
     """
     recipe = ObjectId(recipeID)
     numberSub = int(love) - 1
     mongo.db.recipes.update({'_id': recipe},
                             {'$pull': {'cookbook': current_user.username}})
-    mongo.db.recipes.update({'_id': recipe},                       
+    mongo.db.recipes.update({'_id': recipe},
                             {'$set': {"love": numberSub}})
     return redirect(url_for('my_cookbook', username=current_user.username))
 
@@ -229,7 +231,7 @@ def my_uploaded(username):
     # route to the users uploaded recipes, where they can manage them
     return render_template('uploadedrecipes.html',
                            recipes=mongo.db.recipes.find({
-                               '$and':[{'original_user': username},
+                               '$and': [{'original_user': username},
                                         {'original': True}]}),
                            ingredients=mongo.db.main_ingredients.find())
 

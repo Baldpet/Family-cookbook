@@ -107,6 +107,10 @@ p{
     font-size: 36px;
 }
 
+.home-collapse{
+    margin-top: -15px;
+}
+
 /* Recipe form */
 
 .recipe-form-add{

@@ -15,7 +15,9 @@
 	</div>
 	
 	<div class="row center-align">
-		<p>Welcome {{current_user.username.capitalize()}}!</p>
+        <h5>Welcome to The Family Cookbook</h5>
+		<p>Hi {{current_user.username.capitalize()}}!</p>
+        <p>The site that you can exchange cooking recipes between friends and family and even amend them to match your tastes.</p>
 	</div>
 	<div class="row">
 		<div class="col s6">
@@ -27,6 +29,12 @@
 					</i>
 				</div>
             </a>
+            <ul class="collapsible home-collapse" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">info</i></div>
+                    <div class="collapsible-body"><span>My Cookbook - This is your very own cookbook space where you can view, amend check out all the recipes you have found.</span></div>
+                </li>
+            </ul>
 		</div>
 		<div class="col s6">
             <a class="home-link" href="{{url_for('search_recipes')}}">
@@ -37,6 +45,12 @@
 					</i>
 				</div>
             </a>
+            <ul class="collapsible home-collapse" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">info</i></div>
+                    <div class="collapsible-body"><span>Find a Recipe - This is where you can look through all the recipes that have been added to the site, find your next meal here!</span></div>
+                </li>
+            </ul>
 		</div>
 	</div>
 	<div class="row">
@@ -49,6 +63,12 @@
 					</i>
 				</div>
             </a>
+            <ul class="collapsible home-collapse" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">info</i></div>
+                    <div class="collapsible-body"><span>Add a Recipe - Add your favourite recipes here so that others can enjoy the fruits of yout labour.</span></div>
+                </li>
+            </ul>
 		</div>
 		
 		<div class="col s6">
@@ -60,6 +80,12 @@
 					</i>
 				</div>
             </a>
+            <ul class="collapsible home-collapse" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">info</i></div>
+                    <div class="collapsible-body"><span>Added Recipes - Here you can keep a track of how loved you recipes are by seeing how many times they have been added.</span></div>
+                </li>
+            </ul>
 		</div>
 	</div>
 </div>

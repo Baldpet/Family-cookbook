@@ -60,6 +60,12 @@ End of code taken from Slack user Issac
 """
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    # route handling 404 error on a missing URL
+    return render_template('404.html'), 404
+
+
 @app.route('/')
 def home():
     """

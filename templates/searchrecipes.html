@@ -42,19 +42,19 @@
                         {% endif %}
 			<div class="card-image valign-wrapper">
                 {% if recipe.main_ingredient == 'poultry' %}
-				    <img class="poultry" src="{{url_for('static', filename='assets/chicken.png')}}">
+				    <img class="poultry" src="{{url_for('static', filename='assets/chicken.png')}}" alt="chicken">
                 {% elif recipe.main_ingredient == 'pork' %}
-                    <img class="pork" src="{{url_for('static', filename='assets/pork.png')}}">
+                    <img class="pork" src="{{url_for('static', filename='assets/pork.png')}}" alt="pork">
                 {% elif recipe.main_ingredient == 'beef' %}
-                    <img class="beef" src="{{url_for('static', filename='assets/cow.png')}}">
+                    <img class="beef" src="{{url_for('static', filename='assets/cow.png')}}" alt="cow">
                 {% elif recipe.main_ingredient == 'fish' %}
-                    <img class="fish" src="{{url_for('static', filename='assets/fish.png')}}">
+                    <img class="fish" src="{{url_for('static', filename='assets/fish.png')}}" alt="fish">
                 {% elif recipe.main_ingredient == 'vegetarian' %}
-                    <img class="vegetarian" src="{{url_for('static', filename='assets/corn.png')}}">
+                    <img class="vegetarian" src="{{url_for('static', filename='assets/corn.png')}}" alt="vegetarian">
                 {% elif recipe.main_ingredient == 'vegan' %}
-                    <img class="vegan" src="{{url_for('static', filename='assets/vegan.jpg')}}">
+                    <img class="vegan" src="{{url_for('static', filename='assets/vegan.jpg')}}" alt="vegan">
                 {% else %}
-                    <img class="other" src="{{url_for('static', filename='assets/other.png')}}">
+                    <img class="other" src="{{url_for('static', filename='assets/other.png')}}" alt="other">
                 {% endif %}
 			</div>
 			

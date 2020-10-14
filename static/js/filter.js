@@ -8,10 +8,10 @@ jQuery.expr[':'].icontains = function(a, i, m) {
 /* End of code taken from Stack Overflow */
 
 $('.filter').click(function(){
-    let values = $('form').serializeArray()
-    let mainIngredient = values[0].value
-    let recipeName = values[1].value
-    let search = "h5:icontains(" + recipeName + ")"
+    let values = $('form').serializeArray();
+    let mainIngredient = values[0].value;
+    let recipeName = values[1].value;
+    let search = "h5:icontains(" + recipeName + ")";
     if (mainIngredient === 'none' && recipeName == ""){
         $('.recipe').removeClass('display-none');
     } else if (mainIngredient === 'none'){
@@ -30,4 +30,4 @@ $('.filter').click(function(){
         $('.recipe').removeClass('ingre-visible');
         $(search).parent().parent().parent().parent().parent().removeClass('visible');
     }
-})
+});

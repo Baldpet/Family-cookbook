@@ -154,10 +154,13 @@ def add_cookbook(recipe, love):
 @login_required
 def my_cookbook(username):
     # route to the cookbook of the user, shows the recipes they have saved
-    return render_template('mycookbook.html',
-                           recipes=mongo.db.recipes.find({
-                               'cookbook': username}),
-                           ingredients=mongo.db.main_ingredients.find())
+    try:
+        return render_template('mycookbook.html',
+                               recipes=mongo.db.recipes.find({
+                                   'cookbook': username}),
+                               ingredients=mongo.db.main_ingredients.find())
+    except Exception:
+        return render_template('404.html'), 404
 
 
 @app.route('/amend/<recipeID>', methods=['POST', 'GET'])
@@ -188,16 +191,17 @@ def add_recipe_amend(recipeID):
         users cookbook and does not appear
         to any other users in the search recipes.
     """
-    database = mongo.db.recipes
-    recipe = ObjectId(recipeID)
-    if request.method == 'POST':
-        cookbook_array = database.find({'_id': recipe})
-        cookbook_array_len = len(cookbook_array[0]['cookbook'])
-        if cookbook_array_len == 1 and not cookbook_array[0]['original']:
-            database.delete_one({'_id': recipe})
-        else:
-            database.update({'_id': recipe},
-                            {'$pull': {'cookbook': current_user.username}})
+    try:
+        database = mongo.db.recipes
+        recipe = ObjectId(recipeID)
+        if request.method == 'POST':
+            cookbook_array = database.find({'_id': recipe})
+            cookbook_array_len = len(cookbook_array[0]['cookbook'])
+            if cookbook_array_len == 1 and not cookbook_array[0]['original']:
+                database.delete_one({'_id': recipe})
+            else:
+                database.update({'_id': recipe},
+                                {'$pull': {'cookbook': current_user.username}})
             database.insert_one({
                 'recipe_name': request.form.get('recipe_name').lower(),
                 'main_ingredient': request.form.get('main_ingredient'),
@@ -211,7 +215,9 @@ def add_recipe_amend(recipeID):
                 'love': 0,
                 'original': False
             })
-    return redirect(url_for('my_cookbook', username=current_user.username))
+        return redirect(url_for('my_cookbook', username=current_user.username))
+    except Exception:
+        return render_template('404.html'), 404
 
 
 @app.route('/remove-cookbook/<recipeID>/<love>')
@@ -235,11 +241,14 @@ def remove_cookbook(recipeID, love):
 @login_required
 def my_uploaded(username):
     # route to the users uploaded recipes, where they can manage them
-    return render_template('uploadedrecipes.html',
-                           recipes=mongo.db.recipes.find({
-                               '$and': [{'original_user': username},
-                                        {'original': True}]}),
-                           ingredients=mongo.db.main_ingredients.find())
+    try:
+        return render_template('uploadedrecipes.html',
+                               recipes=mongo.db.recipes.find({
+                                   '$and': [{'original_user': username},
+                                            {'original': True}]}),
+                               ingredients=mongo.db.main_ingredients.find())
+    except Exception:
+        return render_template('404.html'), 404
 
 
 @app.route('/removerecipe/<recipeID>')
@@ -260,10 +269,13 @@ def recipe(recipe, name):
     '''
         Will render the recipe template of the selected recipe.
     '''
-    recipeID = ObjectId(recipe)
-    return render_template('recipe.html',
-                           recipe=mongo.db.recipes.find({
-                               '_id': recipeID}))
+    try:
+        recipeID = ObjectId(recipe)
+        return render_template('recipe.html',
+                               recipe=mongo.db.recipes.find({
+                                    '_id': recipeID}))
+    except Exception:
+        return render_template('404.html'), 404
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -368,4 +380,4 @@ app.jinja_env.globals.update(in_cookbook=in_cookbook)
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=int(
-        os.environ.get('PORT')), debug=False)
+        os.environ.get('PORT')), debug=True)

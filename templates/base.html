@@ -6,12 +6,12 @@
     <title>The Family Cookbook</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <link rel="stylesheet" href="{% block css %}{% endblock %}static/css/style.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 </head>
 <body>
 	<nav>
 		<div class="nav-wrapper">
-			<a href="{{url_for('home')}}" class="brand-logo center"><img class="nav-logo" src="{% block logo %}{% endblock %}static/assets/logo3.png" alt="logo"></a>
+			<a href="{{url_for('home')}}" class="brand-logo center"><img class="nav-logo" src="{{url_for('static', filename='assets/logo3.png')}}" alt="logo"></a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<li><a href="{{url_for('home')}}">Home</a></li>
@@ -51,8 +51,8 @@
 				<div class="col s12">
 					<h5 class="white-text">Website by Peter Baldwin</h5>
                     <ul class="logo-list">
-						<li ><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/peter-baldwin-37828a67/" target="_blank"><img class="logo-link" src="{% block linkedin %}{% endblock %}static/assets/Linkedin.png" alt="linkedin logo"></a></li>
-						<li><a class="grey-text text-lighten-3" href="https://github.com/Baldpet" target="_blank"><img class="logo-link" src="{% block github %}{% endblock %}static/assets/github.png" alt="github logo"></a></li>
+						<li ><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/peter-baldwin-37828a67/" target="_blank"><img class="logo-link" src="{{url_for('static', filename='assets/Linkedin.png')}}" alt="linkedin logo"></a></li>
+						<li><a class="grey-text text-lighten-3" href="https://github.com/Baldpet" target="_blank"><img class="logo-link" src="{{url_for('static', filename='assets/github.png')}}" alt="github logo"></a></li>
 					</ul>
 				</div>
 			</div>
@@ -67,7 +67,7 @@
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <script type="text/javascript" src="{% block basejs %}{% endblock %}static/js/base.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/base.js')}}"></script>
 
     {% block js %}
 

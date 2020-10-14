@@ -1,9 +1,5 @@
 {% extends "base.html" %}
-{% block css %}../../{% endblock %}
-{% block logo %}../../{% endblock %}
-{% block linkedin %}../../{% endblock %}
-{% block github %}../../{% endblock %}
-{% block basejs %}../../{% endblock %}
+
 {% block content %}
 {% for recipe in recipe %}
 <div class="container">
@@ -118,6 +114,5 @@
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="../static/js/addrecipe.js"></script>
-    <script>$('select').material_select('destroy');</script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/addrecipe.js')}}"></script>
 {% endblock %}

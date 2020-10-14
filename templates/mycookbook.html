@@ -1,9 +1,5 @@
 {% extends "base.html" %}
-{% block css %}../../{% endblock %}
-{% block logo %}../../{% endblock %}
-{% block linkedin %}../../{% endblock %}
-{% block github %}../../{% endblock %}
-{% block basejs %}../../{% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="row center-align">
@@ -41,19 +37,19 @@
 		<div class="card horizontal">
 			<div class="card-image valign-wrapper">
                 {% if recipe.main_ingredient == 'poultry' %}
-				    <img class="poultry" src="../static/assets/chicken.png">
+				    <img class="poultry" src="{{url_for('static', filename='assets/chicken.png')}}">
                 {% elif recipe.main_ingredient == 'pork' %}
-                    <img class="pork" src="../static/assets/pork.png">
+                    <img class="pork" src="{{url_for('static', filename='assets/pork.png')}}">
                 {% elif recipe.main_ingredient == 'beef' %}
-                    <img class="beef" src="../static/assets/cow.png">
+                    <img class="beef" src="{{url_for('static', filename='assets/cow.png')}}">
                 {% elif recipe.main_ingredient == 'fish' %}
-                    <img class="fish" src="../static/assets/fish.png">
+                    <img class="fish" src="{{url_for('static', filename='assets/fish.png')}}">
                 {% elif recipe.main_ingredient == 'vegetarian' %}
-                    <img class="vegetarian" src="../static/assets/corn.png">
+                    <img class="vegetarian" src="{{url_for('static', filename='assets/corn.png')}}">
                 {% elif recipe.main_ingredient == 'vegan' %}
-                    <img class="vegan" src="../static/assets/vegan.jpg">
+                    <img class="vegan" src="{{url_for('static', filename='assets/vegan.jpg')}}">
                 {% else %}
-                    <img class="other" src="../static/assets/other.png">
+                    <img class="other" src="{{url_for('static', filename='assets/other.png')}}">
                 {% endif %}
 			</div>
 			
@@ -95,5 +91,5 @@
 {% endblock %}
 
 {% block js %}
-<script type="text/javascript" src="../static/js/filter.js"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/filter.js')}}"></script>
 {% endblock %}
